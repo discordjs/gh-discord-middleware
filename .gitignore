@@ -11,6 +11,9 @@ pids
 *.pid
 *.seed
 
+# Dist
+dist
+
 # Env
 .env
 
