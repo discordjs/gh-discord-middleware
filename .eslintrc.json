@@ -1,5 +1,6 @@
 {
-	"extends": ["next/core-web-vitals", "marine/prettier/react"],
+	"root": true,
+	"extends": "marine/prettier/index",
 	"parserOptions": {
 		"project": "./tsconfig.eslint.json"
 	}

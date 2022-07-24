@@ -16,15 +16,6 @@ export function enumIncludes<StrictType extends Generic, Generic>(
 }
 
 /**
- * Duck type an error from unknown
- * @param err A potential error
- * @returns Whether the error is probably an error
- */
-export function isError(err: unknown): err is Error {
-	return typeof err === 'object' && err !== null && 'name' in err && 'message' in err;
-}
-
-/**
  * Gets the target for a (potential) package name, if the package name isn't found, returns `monorepo`
  * @param potentialPackage The package name to try to get a target for
  * @returns The determined target

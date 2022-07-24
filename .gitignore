@@ -1,4 +1,3 @@
-
 # Packages
 node_modules/
 
@@ -14,13 +13,6 @@ pids
 
 # Env
 .env
-.env*.local
-
-# Dist
-dist/
-build/
-/.next/
-/out/
 
 # Miscellaneous
 .tmp/
@@ -29,10 +21,7 @@ build/
 !.vscode/settings.json
 .idea/
 .DS_Store
-.turbo
-.vercel
 tsconfig.tsbuildinfo
-coverage/
 
 # yarn
 .pnp.*
@@ -42,7 +31,4 @@ coverage/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-
-# Cache
-.prettiercache
-.eslintcache
+.vercel

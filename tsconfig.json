@@ -1,31 +1,33 @@
 {
+	// Mapped from https://www.typescriptlang.org/tsconfig
 	"compilerOptions": {
 		// Type Checking
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
-		"exactOptionalPropertyTypes": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"strict": true,
-		"useUnknownInCatchVariables": true,
 		"noUncheckedIndexedAccess": true,
 
 		// Modules
-		"module": "esnext",
-		"moduleResolution": "node",
+		"module": "ESNext",
+		"moduleResolution": "NodeNext",
 		"resolveJsonModule": true,
 
 		// Emit
-		"noEmit": true,
+		"declaration": true,
+		"declarationMap": true,
 		"importHelpers": true,
 		"importsNotUsedAsValues": "error",
 		"inlineSources": true,
 		"newLine": "lf",
 		"noEmitHelpers": true,
-		"removeComments": true,
+		"outDir": "dist",
+		"preserveConstEnums": true,
+		"removeComments": false,
 		"sourceMap": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
@@ -33,25 +35,9 @@
 		// Language and Environment
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"target": "ES2022",
-		"lib": ["dom", "dom.iterable", "esnext"],
-		"useDefineForClassFields": true,
-
-		// Next settomgs
-		"allowJs": true,
-		"skipLibCheck": true,
-		"isolatedModules": true,
-		"jsx": "preserve",
-		"incremental": true
+		"lib": ["ESNext", "DOM"],
+		"target": "ESNext",
+		"useDefineForClassFields": true
 	},
-	"include": [
-		"next-env.d.ts",
-		"**/*.ts",
-		"**/*.tsx",
-		"lib/handlers/release.ts",
-		"lib/handlers/release.ts",
-		"lib/handlers/pullRequest.ts",
-		"lib/handlers/commitComment.ts"
-	],
-	"exclude": ["node_modules"]
+	"include": ["api/**/*.ts"]
 }
