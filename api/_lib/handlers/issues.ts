@@ -1,6 +1,6 @@
 import type { IssueCommentEvent, IssuesEvent } from '@octokit/webhooks-types';
-import { getPackageLabelTarget, getPotentialPackageTarget } from '../functions';
-import type { DiscordWebhooksTarget } from '../webhooks';
+import { getPackageLabelTarget, getPotentialPackageTarget } from '../utils/functions';
+import type { DiscordWebhooksTarget } from '../utils/webhooks';
 
 /**
  * Gets the target for incoming issue type webhooks

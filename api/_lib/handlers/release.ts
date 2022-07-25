@@ -1,7 +1,7 @@
 import type { ReleaseEvent } from '@octokit/webhooks-types';
-import { PackageName } from '../constants';
-import { getPotentialPackageTarget } from '../functions';
-import type { DiscordWebhooksTarget } from '../webhooks';
+import { PackageName } from '../utils/constants';
+import { getPotentialPackageTarget } from '../utils/functions';
+import type { DiscordWebhooksTarget } from '../utils/webhooks';
 
 /**
  * Gets the target for incoming release type webhooks

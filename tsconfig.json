@@ -14,18 +14,19 @@
 
 		// Modules
 		"module": "ESNext",
-		"moduleResolution": "NodeNext",
+		"moduleResolution": "Node",
 		"resolveJsonModule": true,
 
 		// Emit
-		"declaration": true,
-		"declarationMap": true,
+		"declaration": false,
+		"declarationMap": false,
 		"importHelpers": true,
 		"importsNotUsedAsValues": "error",
 		"inlineSources": true,
 		"newLine": "lf",
 		"noEmitHelpers": true,
 		"outDir": "dist",
+		"rootDir": "./",
 		"preserveConstEnums": true,
 		"removeComments": false,
 		"sourceMap": true,
@@ -35,9 +36,9 @@
 		// Language and Environment
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"lib": ["ESNext", "DOM"],
+		"lib": ["ESNext"],
 		"target": "ESNext",
 		"useDefineForClassFields": true
 	},
-	"include": ["src/**/*.ts"]
+	"include": ["api/**/*.ts"]
 }

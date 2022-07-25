@@ -5,8 +5,14 @@ import type {
 	PullRequestReviewEvent,
 	PullRequestReviewThreadEvent,
 } from '@octokit/webhooks-types';
-import { CodecovBotId, DiscardCodecovComments, DiscardVercelComments, PackageName, VercelBotId } from '../constants';
-import { DiscordWebhooksTarget, PerPackageWebhooks } from '../webhooks';
+import {
+	CodecovBotId,
+	DiscardCodecovComments,
+	DiscardVercelComments,
+	PackageName,
+	VercelBotId,
+} from '../utils/constants';
+import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks';
 
 /**
  * Gets the target for incoming pull request and subsidary type webhooks

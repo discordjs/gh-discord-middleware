@@ -1,6 +1,6 @@
 import type { PushEvent } from '@octokit/webhooks-types';
-import { PackageName } from '../constants';
-import { DiscordWebhooksTarget, PerPackageWebhooks } from '../webhooks';
+import { PackageName } from '../utils/constants';
+import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks';
 
 /**
  * Gets the target for incoming push type webhooks

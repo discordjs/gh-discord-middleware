@@ -1,7 +1,13 @@
 import { request } from '@octokit/request';
 import type { CommitCommentEvent } from '@octokit/webhooks-types';
-import { CodecovBotId, DiscardCodecovComments, DiscardVercelComments, PackageName, VercelBotId } from '../constants';
-import { DiscordWebhooksTarget, PerPackageWebhooks } from '../webhooks';
+import {
+	CodecovBotId,
+	DiscardCodecovComments,
+	DiscardVercelComments,
+	PackageName,
+	VercelBotId,
+} from '../utils/constants';
+import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks';
 
 /**
  * Gets the target for incoming commit comment type webhooks
