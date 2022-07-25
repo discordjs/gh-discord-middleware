@@ -3,5 +3,13 @@
 	"extends": "marine/prettier/index",
 	"parserOptions": {
 		"project": "./tsconfig.eslint.json"
-	}
+	},
+	"overrides": [
+		{
+			"files": ["middleware.ts"],
+			"parserOptions": {
+				"project": "./tsconfig.middleware.json"
+			}
+		}
+	]
 }
