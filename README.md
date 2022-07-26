@@ -32,5 +32,6 @@ gh-discord-middleware is a proxy based solution to split the [discord.js monorep
 - `DISCORD_WEBHOOK_REST` - the webhook to deliver events to if they are determined to be strictly related to @discordjs/rest
 - `DISCORD_WEBHOOK_VOICE` - the webhook to deliver events to if they are determined to be strictly related to @discordjs/voice
 - `DISCORD_WEBHOOK_WEBSITE` - the webhook to deliver events to if they are determined to be strictly related to @discordjs/website
+- `DISCORD_WEBHOOK_WS` - the webhook to deliver events to if they are determined to be strictly related to @discordjs/ws
 
 Each webhook url above needs to include /github on the end!
