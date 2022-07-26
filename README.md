@@ -20,7 +20,7 @@ gh-discord-middleware is a proxy based solution to split the [discord.js monorep
 
 # Vercel ENV keys
 
-- `GITHUB_SECRET_TOK0EN` - a secret key used to secure incoming requests, if set
+- `GITHUB_SECRET_TOKEN` - a secret key used to secure incoming requests, if set
 - `DISCARD_VERCEL_PR_COMMENTS` - whether to drop webhooks triggered by a pr comment from the vercel bot
 - `DISCARD_VERCEL_COMMIT_COMMENTS` - whether to drop webhooks triggered by a commit comment from the vercel bot
 - `DISCARD_CODECOV_COMMENTS` - whether to drop webhooks triggered by a comment from the codecov bot
