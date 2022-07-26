@@ -22,6 +22,7 @@ export enum PackageName {
 	Scripts = 'scripts',
 	Voice = 'voice',
 	Website = 'website',
+	Ws = 'ws',
 }
 
 export const DiscardVercelPrComments = process.env.DISCARD_VERCEL_PR_COMMENTS === 'true';

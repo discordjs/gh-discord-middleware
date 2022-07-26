@@ -9,6 +9,7 @@ export const DiscordWebhooks = {
 	rest: process.env.DISCORD_WEBHOOK_REST,
 	voice: process.env.DISCORD_WEBHOOK_VOICE,
 	website: process.env.DISCORD_WEBHOOK_WEBSITE,
+	ws: process.env.DISCORD_WEBHOOK_WS,
 } as const;
 
 export type DiscordWebhooksTarget = keyof typeof DiscordWebhooks | 'none';
@@ -25,4 +26,5 @@ export const PerPackageWebhooks: Record<PackageName, DiscordWebhooksTarget> = {
 	scripts: 'monorepo',
 	voice: 'voice',
 	website: 'website',
+	ws: 'ws',
 };
