@@ -24,7 +24,8 @@ export enum PackageName {
 	Website = 'website',
 }
 
-export const DiscardVercelComments = process.env.DISCARD_VERCEL_COMMENTS === 'true';
+export const DiscardVercelPrComments = process.env.DISCARD_VERCEL_PR_COMMENTS === 'true';
+export const DiscardVercelCommitComments = process.env.DISCARD_VERCEL_COMMIT_COMMENTS === 'true';
 export const VercelBotId = 35613825;
 export const DiscardCodecovComments = process.env.DISCARD_CODECOV_COMMENTS === 'true';
 export const CodecovBotId = 22429695;

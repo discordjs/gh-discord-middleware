@@ -8,7 +8,7 @@ import type {
 import {
 	CodecovBotId,
 	DiscardCodecovComments,
-	DiscardVercelComments,
+	DiscardVercelPrComments,
 	PackageName,
 	VercelBotId,
 } from '../utils/constants';
@@ -23,7 +23,7 @@ export async function getPullRequestRewriteTarget(
 	event: PullRequestEvent | PullRequestReviewEvent | PullRequestReviewCommentEvent | PullRequestReviewThreadEvent,
 ): Promise<DiscordWebhooksTarget> {
 	if (DiscardCodecovComments && event.sender.id === CodecovBotId) return 'none';
-	if (DiscardVercelComments && event.sender.id === VercelBotId) return 'none';
+	if (DiscardVercelPrComments && event.sender.id === VercelBotId) return 'none';
 
 	const filesResponse = await request('GET /repos/{owner}/{repo}/pulls/{pull_number}/files', {
 		owner: event.repository.owner.login,

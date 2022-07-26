@@ -20,16 +20,17 @@ gh-discord-middleware is a proxy based solution to split the [discord.js monorep
 
 # Vercel ENV keys
 
-- GITHUB_SECRET_TOKEN - a secret key used to secure incoming requests, if set
-- DISCARD_VERCEL_COMMENTS - whether to drop webhooks triggered by a comment from the vercel bot
-- DISCARD_CODECOV_COMMENTS - whether to drop webhooks triggered by a comment from the codecov bot
-- DISCORD_WEBHOOK_MONOREPO - the default webhook url to deliver all events to, unless they are split to another as defined below
-- DISCORD_WEBHOOK_BUILDERS - the webhook to deliver events to if they are determined to be strictly related to @discordjs/builders
-- DISCORD_WEBHOOK_COLLECTION - the webhook to deliver events to if they are determined to be strictly related to @discordjs/collection
-- DISCORD_WEBHOOK_CORE - the webhook to deliver events to if they are determined to be strictly related to the discord.js core package
-- DISCORD_WEBHOOK_PROXY - the webhook to deliver events to if they are determined to be strictly related to @discordjs/proxy and the proxy-container package
-- DISCORD_WEBHOOK_REST - the webhook to deliver events to if they are determined to be strictly related to @discordjs/rest
-- DISCORD_WEBHOOK_VOICE - the webhook to deliver events to if they are determined to be strictly related to @discordjs/voice
-- DISCORD_WEBHOOK_WEBSITE - the webhook to deliver events to if they are determined to be strictly related to @discordjs/website
+- `GITHUB_SECRET_TOK0EN` - a secret key used to secure incoming requests, if set
+- `DISCARD_VERCEL_PR_COMMENTS` - whether to drop webhooks triggered by a pr comment from the vercel bot
+- `DISCARD_VERCEL_COMMIT_COMMENTS` - whether to drop webhooks triggered by a commit comment from the vercel bot
+- `DISCARD_CODECOV_COMMENTS` - whether to drop webhooks triggered by a comment from the codecov bot
+- `DISCORD_WEBHOOK_MONOREPO` - the default webhook url to deliver all events to, unless they are split to another as defined below
+- `DISCORD_WEBHOOK_BUILDERS` - the webhook to deliver events to if they are determined to be strictly related to @discordjs/builders
+- `DISCORD_WEBHOOK_COLLECTION` - the webhook to deliver events to if they are determined to be strictly related to @discordjs/collection
+- `DISCORD_WEBHOOK_CORE` - the webhook to deliver events to if they are determined to be strictly related to the discord.js core package
+- `DISCORD_WEBHOOK_PROXY` - the webhook to deliver events to if they are determined to be strictly related to @discordjs/proxy and the proxy-container package
+- `DISCORD_WEBHOOK_REST` - the webhook to deliver events to if they are determined to be strictly related to @discordjs/rest
+- `DISCORD_WEBHOOK_VOICE` - the webhook to deliver events to if they are determined to be strictly related to @discordjs/voice
+- `DISCORD_WEBHOOK_WEBSITE` - the webhook to deliver events to if they are determined to be strictly related to @discordjs/website
 
 Each webhook url above needs to include /github on the end!
