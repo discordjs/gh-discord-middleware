@@ -35,3 +35,5 @@ tsconfig.tsbuildinfo
 !.yarn/sdks
 !.yarn/versions
 .vercel
+
+.vercel
