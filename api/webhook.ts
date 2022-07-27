@@ -11,6 +11,7 @@ import type {
 	ReleaseEvent,
 } from '@octokit/webhooks-types';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import fetch from 'node-fetch';
 import { getCommitCommentRewriteTarget } from './_lib/handlers/commitComment';
 import { getIssueRewriteTarget } from './_lib/handlers/issues';
 import { getPullRequestRewriteTarget } from './_lib/handlers/pullRequest';
@@ -20,7 +21,11 @@ import { CheckedEvent } from './_lib/utils/constants';
 import { enumIncludes } from './_lib/utils/functions';
 import { type DiscordWebhooksTarget, DiscordWebhooks } from './_lib/utils/webhooks';
 
-function redirect(res: VercelResponse, target: Exclude<DiscordWebhooksTarget, 'none'>) {
+function respondJSON(res: VercelResponse, status: number, message: string, data: unknown) {
+	res.status(status).json({ status, message, data });
+}
+
+async function rewrite(req: VercelRequest, res: VercelResponse, target: Exclude<DiscordWebhooksTarget, 'none'>) {
 	let url = DiscordWebhooks[target];
 	if (!url && target !== 'monorepo') {
 		url = DiscordWebhooks.monorepo;
@@ -30,11 +35,15 @@ function redirect(res: VercelResponse, target: Exclude<DiscordWebhooksTarget, 'n
 		return;
 	}
 
-	res.redirect(302, url);
-}
-
-function respondJSON(res: VercelResponse, status: number, message: string, data: unknown) {
-	res.status(status).json({ status, message, data });
+	try {
+		const body = `${JSON.stringify(req.body, null, 2)}\n`;
+		const discordRes = await fetch(url, { body, headers: req.headers as Record<string, string>, method: req.method });
+		const headers = [...discordRes.headers];
+		res.writeHead(discordRes.status, discordRes.statusText, headers);
+		discordRes.body?.pipe(res);
+	} catch (err) {
+		respondJSON(res, 500, `Error while forwarding request to discord`, err);
+	}
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -43,7 +52,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 		res.writeHead(400).end('Not a github event');
 		return;
 	}
-	if (!eventName || !enumIncludes(CheckedEvent, eventName)) return redirect(res, 'monorepo');
+	if (!eventName || !enumIncludes(CheckedEvent, eventName)) return rewrite(req, res, 'monorepo');
 
 	const eventData = req.body as unknown;
 	let target: DiscordWebhooksTarget;
@@ -79,7 +88,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 		// Github request errored in some way
 		if (err instanceof RequestError) {
 			if (err.status === 404) {
-				return redirect(res, 'monorepo');
+				return rewrite(req, res, 'monorepo');
 			}
 			if (err.response) {
 				const limit = err.response.headers['x-ratelimit-limit'];
@@ -100,5 +109,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 		return res.writeHead(204).end('Event recieved, skipped forwarding');
 	}
 
-	redirect(res, target);
+	await rewrite(req, res, target);
 }

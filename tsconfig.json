@@ -11,6 +11,7 @@
 		"noUnusedParameters": true,
 		"strict": true,
 		"noUncheckedIndexedAccess": true,
+		"skipLibCheck": true,
 
 		// Modules
 		"module": "ESNext",
