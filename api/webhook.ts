@@ -30,7 +30,7 @@ function redirect(res: VercelResponse, target: Exclude<DiscordWebhooksTarget, 'n
 		return;
 	}
 
-	res.redirect(url);
+	res.redirect(302, url);
 }
 
 function respondJSON(res: VercelResponse, status: number, message: string, data: unknown) {
