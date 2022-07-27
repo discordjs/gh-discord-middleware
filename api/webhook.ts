@@ -42,7 +42,7 @@ async function rewrite(req: VercelRequest, res: VercelResponse, target: Exclude<
 		if (req.headers['content-type']) headers['Content-Type'] = req.headers['content-type'];
 		if (req.headers['user-agent']) headers['User-Agent'] = req.headers['user-agent'];
 		if (req.headers['x-github-delivery']) headers['X-Github-Delivery'] = req.headers['x-github-delivery'] as string;
-		if (req.headers['x-gitHub-event']) headers['X-GitHub-Event'] = req.headers['x-gitHub-event'] as string;
+		if (req.headers['x-github-event']) headers['X-GitHub-Event'] = req.headers['x-github-event'] as string;
 		if (req.headers['x-github-hook-id']) headers['X-GitHub-Hook-ID'] = req.headers['x-github-hook-id'] as string;
 		if (req.headers['x-github-hook-installation-target-id']) {
 			headers['X-GitHub-Hook-Installation-Target-ID'] = req.headers['x-github-hook-installation-target-id'] as string;
