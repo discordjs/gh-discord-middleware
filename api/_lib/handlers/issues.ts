@@ -1,4 +1,5 @@
 import type { IssueCommentEvent, IssuesEvent } from '@octokit/webhooks-types';
+import { CodecovBotId, DiscardCodecovComments, DiscardVercelPrComments, VercelBotId } from '../utils/constants';
 import { getPackageLabelTarget, getPotentialPackageTarget } from '../utils/functions';
 import type { DiscordWebhooksTarget } from '../utils/webhooks';
 
@@ -8,6 +9,9 @@ import type { DiscordWebhooksTarget } from '../utils/webhooks';
  * @returns The target name
  */
 export function getIssueRewriteTarget(event: IssueCommentEvent | IssuesEvent): DiscordWebhooksTarget {
+	if (DiscardCodecovComments && event.sender.id === CodecovBotId) return 'none';
+	if (DiscardVercelPrComments && event.sender.id === VercelBotId) return 'none';
+
 	const packageLabel = getPackageLabelTarget(event.issue.labels);
 	if (packageLabel) return packageLabel;
 
