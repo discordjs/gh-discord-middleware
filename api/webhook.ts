@@ -122,7 +122,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 	}
 
 	if (target === 'none') {
-		return res.writeHead(204).end('Event recieved, skipped forwarding');
+		return res.writeHead(204).end('Event received, skipped forwarding');
 	}
 
 	await rewrite(req, res, target);
