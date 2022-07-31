@@ -8,6 +8,8 @@ export enum CheckedEvent {
 	PullRequestReviewThread = 'pull_request_review_thread',
 	Push = 'push',
 	Release = 'release',
+	TagOrBranchCreate = 'create',
+	TagOrBranchDelete = 'delete',
 }
 
 export enum PackageName {

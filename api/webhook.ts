@@ -1,6 +1,8 @@
 import { RequestError } from '@octokit/request-error';
 import type {
 	CommitCommentEvent,
+	CreateEvent,
+	DeleteEvent,
 	IssueCommentEvent,
 	IssuesEvent,
 	PullRequestEvent,
@@ -17,6 +19,7 @@ import { getIssueRewriteTarget } from './_lib/handlers/issues';
 import { getPullRequestRewriteTarget } from './_lib/handlers/pullRequest';
 import { getPushRewriteTarget } from './_lib/handlers/push';
 import { getReleaseRewriteTarget } from './_lib/handlers/release';
+import { getTagOrBranchTarget } from './_lib/handlers/tagOrBanrch';
 import { CheckedEvent } from './_lib/utils/constants';
 import { enumIncludes } from './_lib/utils/functions';
 import { type DiscordWebhooksTarget, DiscordWebhooks } from './_lib/utils/webhooks';
@@ -56,7 +59,7 @@ async function rewrite(req: VercelRequest, res: VercelResponse, target: Exclude<
 		const discordRes = await fetch(url, { body, headers, method: req.method });
 		const discordHeaders = [...discordRes.headers];
 		res.writeHead(discordRes.status, discordRes.statusText, discordHeaders);
-		discordRes.body?.pipe(res);
+		discordRes.body.pipe(res);
 	} catch (err) {
 		respondJSON(res, 500, `Error while forwarding request to discord`, err);
 	}
@@ -98,6 +101,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 				break;
 			case CheckedEvent.Release:
 				target = getReleaseRewriteTarget(eventData as ReleaseEvent);
+				break;
+			case CheckedEvent.TagOrBranchCreate:
+			case CheckedEvent.TagOrBranchDelete:
+				target = getTagOrBranchTarget(eventData as CreateEvent | DeleteEvent);
 				break;
 		}
 	} catch (err) {
