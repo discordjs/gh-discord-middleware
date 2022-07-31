@@ -22,9 +22,6 @@ export async function getCommitCommentRewriteTarget(event: CommitCommentEvent): 
 		owner: event.repository.owner.login,
 		repo: event.repository.name,
 		ref: event.comment.commit_id,
-		mediaType: {
-			format: 'patch',
-		},
 	});
 
 	const commit = commitResponse.data;
