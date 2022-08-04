@@ -12,6 +12,7 @@ import {
 	PackageName,
 	VercelBotId,
 } from '../utils/constants';
+import { getPackageLabelTarget } from '../utils/functions';
 import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks';
 
 /**
@@ -24,6 +25,12 @@ export async function getPullRequestRewriteTarget(
 ): Promise<DiscordWebhooksTarget> {
 	if (DiscardCodecovComments && event.sender.id === CodecovBotId) return 'none';
 	if (DiscardVercelPrComments && event.sender.id === VercelBotId) return 'none';
+
+	// Workaround for pre-monorepo
+	if (event.pull_request.base.ref === 'v13') return 'discord.js';
+
+	const packageLabel = getPackageLabelTarget(event.pull_request.labels);
+	if (packageLabel && packageLabel !== 'monorepo') return packageLabel;
 
 	const filesResponse = await request('GET /repos/{owner}/{repo}/pulls/{pull_number}/files', {
 		owner: event.repository.owner.login,

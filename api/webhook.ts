@@ -11,6 +11,7 @@ import type {
 	PullRequestReviewThreadEvent,
 	PushEvent,
 	ReleaseEvent,
+	WebhookEvent,
 } from '@octokit/webhooks-types';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import fetch from 'node-fetch';
@@ -29,9 +30,13 @@ function respondJSON(res: VercelResponse, status: number, message: string, data:
 }
 
 async function rewrite(req: VercelRequest, res: VercelResponse, target: Exclude<DiscordWebhooksTarget, 'none'>) {
+	const originalBody = req.body as WebhookEvent;
 	let url = DiscordWebhooks[target];
 	if (!url && target !== 'monorepo') {
 		url = DiscordWebhooks.monorepo;
+		if ('repository' in originalBody && originalBody.repository) {
+			originalBody.repository.full_name = `${originalBody.repository.full_name.split('/')[0]!}/${target}`;
+		}
 	}
 	if (!url) {
 		res.writeHead(500, 'Cannot process request due to missing server side keys').end();
@@ -39,7 +44,7 @@ async function rewrite(req: VercelRequest, res: VercelResponse, target: Exclude<
 	}
 
 	try {
-		const body = `${JSON.stringify(req.body, null, 2)}\n`;
+		const body = `${JSON.stringify(originalBody, null, 2)}\n`;
 		const headers: Record<string, string> = {};
 		if (req.headers.accept) headers.Accept = req.headers.accept;
 		if (req.headers['content-type']) headers['Content-Type'] = req.headers['content-type'];
@@ -73,7 +78,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 	}
 	if (!eventName || !enumIncludes(CheckedEvent, eventName)) return rewrite(req, res, 'monorepo');
 
-	const eventData = req.body as unknown;
+	const eventData = req.body as WebhookEvent;
 	let target: DiscordWebhooksTarget;
 	try {
 		switch (eventName) {
