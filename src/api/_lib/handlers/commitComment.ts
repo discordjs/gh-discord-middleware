@@ -6,8 +6,8 @@ import {
 	DiscardVercelCommitComments,
 	PackageName,
 	VercelBotId,
-} from '../utils/constants';
-import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks';
+} from '../utils/constants.js';
+import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks.js';
 
 /**
  * Gets the target for incoming commit comment type webhooks

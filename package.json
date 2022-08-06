@@ -6,6 +6,8 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsc && tsc --project tsconfig.middleware.json",
+		"build:output": "yarn clean && yarn build && node dist/build/build.js",
+		"clean": "rimraf dist .vercel/output",
 		"lint": "prettier --check . && eslint api --ext ts && tsc --noEmit",
 		"format": "prettier --write . && eslint api --ext ts --fix",
 		"fmt": "yarn format"
@@ -25,22 +27,29 @@
 		"@octokit/request": "^6.2.0",
 		"@octokit/request-error": "^3.0.0",
 		"@octokit/webhooks-methods": "^3.0.0",
-		"node-fetch": "^2.6.7"
+		"node-fetch": "^3.2.10"
 	},
 	"devDependencies": {
 		"@octokit/webhooks-types": "^6.2.4",
-		"@types/node-fetch": "^2.6.2",
+		"@types/estree": "^1.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.30.7",
 		"@typescript-eslint/parser": "^5.30.7",
+		"@vercel/nft": "0.21.0",
 		"@vercel/node": "^2.4.5",
+		"acorn": "^8.8.0",
+		"esbuild": "^0.14.53",
 		"eslint": "8.19.0",
 		"eslint-config-marine": "^9.4.1",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-import-resolver-typescript": "^3.3.0",
 		"eslint-plugin-import": "^2.26.0",
 		"prettier": "^2.7.1",
+		"rimraf": "^3.0.2",
 		"typescript": "4.7.4",
 		"vercel": "^27.2.0"
 	},
-	"packageManager": "yarn@3.2.2"
+	"packageManager": "yarn@3.2.2",
+	"resolutions": {
+		"@vercel/nft@0.21.0": "patch:@vercel/nft@npm:0.21.0#.yarn/patches/@vercel-nft-npm-0.21.0-3492f6e245.patch"
+	}
 }
