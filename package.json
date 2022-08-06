@@ -37,7 +37,6 @@
 		"@vercel/nft": "0.21.0",
 		"@vercel/node": "^2.4.5",
 		"acorn": "^8.8.0",
-		"esbuild": "^0.14.53",
 		"eslint": "8.19.0",
 		"eslint-config-marine": "^9.4.1",
 		"eslint-config-prettier": "^8.5.0",
