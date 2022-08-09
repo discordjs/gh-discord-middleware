@@ -49,14 +49,11 @@ continueHeaders.set('X-Middleware-Next', '1');
 export default async function middleware(request: Request) {
 	if (!secret) return new Response(null, { headers: continueHeaders });
 	const rawGithubSignature = request.headers.get('X-Hub-Signature-256');
-	console.log(rawGithubSignature);
 	if (!rawGithubSignature) return new Response(null, { status: 401, statusText: 'Signature Missing' });
 	const githubSignature = rawGithubSignature.split('=')[1];
-	console.log(githubSignature);
 	if (!githubSignature) return new Response(null, { status: 401, statusText: 'Signature Missing' });
 	const payload = await request.text();
 	const verified = await verify(secret, payload, githubSignature);
-	console.log(verified);
 	if (!verified) return new Response(null, { status: 401 });
 	return new Response(null, { headers: continueHeaders });
 }
