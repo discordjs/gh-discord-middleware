@@ -8,6 +8,9 @@ import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks.js'
  * @returns The target name
  */
 export function getPushRewriteTarget(event: PushEvent): DiscordWebhooksTarget {
+	// Workaround for pre-monorepo
+	if (event.ref === 'refs/heads/v13') return 'discord.js';
+
 	const packages = new Set<PackageName>();
 
 	for (const commit of event.commits) {
