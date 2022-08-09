@@ -51,6 +51,7 @@ export default async function middleware(request: Request) {
 	const rawGithubSignature = request.headers.get('X-Hub-Signature-256');
 	if (!rawGithubSignature) return new Response(null, { status: 401, statusText: 'Signature Missing' });
 	const githubSignature = rawGithubSignature.split('=')[1];
+	if (!githubSignature) return new Response(null, { status: 401, statusText: 'Signature Missing' });
 	const payload = await request.text();
 	const verified = await verify(secret, payload, githubSignature);
 	if (!verified) return new Response(null, { status: 401 });
