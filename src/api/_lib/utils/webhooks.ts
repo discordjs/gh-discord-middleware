@@ -1,4 +1,4 @@
-import type { PackageName } from './constants';
+import type { PackageName } from './constants.js';
 
 export const DiscordWebhooks = {
 	monorepo: process.env.DISCORD_WEBHOOK_MONOREPO,

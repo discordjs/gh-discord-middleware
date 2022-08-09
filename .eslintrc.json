@@ -6,7 +6,7 @@
 	},
 	"overrides": [
 		{
-			"files": ["middleware.ts"],
+			"files": ["src/middleware.ts"],
 			"parserOptions": {
 				"project": "./tsconfig.middleware.json"
 			}

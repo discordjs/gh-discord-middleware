@@ -15,15 +15,15 @@ import type {
 } from '@octokit/webhooks-types';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import fetch from 'node-fetch';
-import { getCommitCommentRewriteTarget } from './_lib/handlers/commitComment';
-import { getIssueRewriteTarget } from './_lib/handlers/issues';
-import { getPullRequestRewriteTarget } from './_lib/handlers/pullRequest';
-import { getPushRewriteTarget } from './_lib/handlers/push';
-import { getReleaseRewriteTarget } from './_lib/handlers/release';
-import { getTagOrBranchTarget } from './_lib/handlers/tagOrBanrch';
-import { CheckedEvent } from './_lib/utils/constants';
-import { enumIncludes } from './_lib/utils/functions';
-import { type DiscordWebhooksTarget, DiscordWebhooks } from './_lib/utils/webhooks';
+import { getCommitCommentRewriteTarget } from './_lib/handlers/commitComment.js';
+import { getIssueRewriteTarget } from './_lib/handlers/issues.js';
+import { getPullRequestRewriteTarget } from './_lib/handlers/pullRequest.js';
+import { getPushRewriteTarget } from './_lib/handlers/push.js';
+import { getReleaseRewriteTarget } from './_lib/handlers/release.js';
+import { getTagOrBranchTarget } from './_lib/handlers/tagOrBanrch.js';
+import { CheckedEvent } from './_lib/utils/constants.js';
+import { enumIncludes } from './_lib/utils/functions.js';
+import { type DiscordWebhooksTarget, DiscordWebhooks } from './_lib/utils/webhooks.js';
 
 function respondJSON(res: VercelResponse, status: number, message: string, data: unknown) {
 	res.status(status).json({ status, message, data });
@@ -64,7 +64,7 @@ async function rewrite(req: VercelRequest, res: VercelResponse, target: Exclude<
 		const discordRes = await fetch(url, { body, headers, method: req.method });
 		const discordHeaders = [...discordRes.headers];
 		res.writeHead(discordRes.status, discordRes.statusText, discordHeaders);
-		discordRes.body.pipe(res);
+		discordRes.body?.pipe(res);
 	} catch (err) {
 		respondJSON(res, 500, `Error while forwarding request to discord`, err);
 	}

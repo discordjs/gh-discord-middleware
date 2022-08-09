@@ -1,6 +1,6 @@
 import type { Label } from '@octokit/webhooks-types';
-import type { PackageName } from './constants';
-import { PerPackageWebhooks } from './webhooks';
+import type { PackageName } from './constants.js';
+import { PerPackageWebhooks } from './webhooks.js';
 
 /**
  * `Array#includes` but it works for enums

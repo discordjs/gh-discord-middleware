@@ -11,9 +11,9 @@ import {
 	DiscardVercelPrComments,
 	PackageName,
 	VercelBotId,
-} from '../utils/constants';
-import { getPackageLabelTarget } from '../utils/functions';
-import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks';
+} from '../utils/constants.js';
+import { getPackageLabelTarget } from '../utils/functions.js';
+import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks.js';
 
 /**
  * Gets the target for incoming pull request and subsidary type webhooks

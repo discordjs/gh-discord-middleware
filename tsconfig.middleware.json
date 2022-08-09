@@ -2,7 +2,10 @@
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
 		"outDir": "./dist",
-		"lib": ["ESNext", "DOM"]
+		"lib": ["ESNext", "DOM"],
+		"module": "ESNext",
+		"moduleResolution": "classic",
+		"resolveJsonModule": false
 	},
-	"include": ["middleware.ts"]
+	"include": ["src/middleware.ts"]
 }

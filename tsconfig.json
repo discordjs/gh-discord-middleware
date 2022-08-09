@@ -14,8 +14,8 @@
 		"skipLibCheck": true,
 
 		// Modules
-		"module": "ESNext",
-		"moduleResolution": "Node",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 		"resolveJsonModule": true,
 
 		// Emit
@@ -27,7 +27,7 @@
 		"newLine": "lf",
 		"noEmitHelpers": true,
 		"outDir": "dist",
-		"rootDir": "./",
+		"rootDir": "src",
 		"preserveConstEnums": true,
 		"removeComments": false,
 		"sourceMap": true,
@@ -41,5 +41,5 @@
 		"target": "ESNext",
 		"useDefineForClassFields": true
 	},
-	"include": ["api/**/*.ts"]
+	"include": ["src/api/**/*.ts", "src/build/**/*.ts"]
 }

@@ -1,7 +1,7 @@
 import type { IssueCommentEvent, IssuesEvent } from '@octokit/webhooks-types';
-import { CodecovBotId, DiscardCodecovComments, DiscardVercelPrComments, VercelBotId } from '../utils/constants';
-import { getPackageLabelTarget, getPotentialPackageTarget } from '../utils/functions';
-import type { DiscordWebhooksTarget } from '../utils/webhooks';
+import { CodecovBotId, DiscardCodecovComments, DiscardVercelPrComments, VercelBotId } from '../utils/constants.js';
+import { getPackageLabelTarget, getPotentialPackageTarget } from '../utils/functions.js';
+import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
  * Gets the target for incoming issue type webhooks
