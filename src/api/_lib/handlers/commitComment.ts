@@ -1,12 +1,7 @@
 import { request } from '@octokit/request';
 import type { CommitCommentEvent } from '@octokit/webhooks-types';
-import {
-	CodecovBotId,
-	DiscardCodecovComments,
-	DiscardVercelCommitComments,
-	PackageName,
-	VercelBotId,
-} from '../utils/constants.js';
+import { PackageName } from '../utils/constants.js';
+import { filterCommitComments } from '../utils/filters.js';
 import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks.js';
 
 /**
@@ -15,8 +10,7 @@ import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks.js'
  * @returns The target name
  */
 export async function getCommitCommentRewriteTarget(event: CommitCommentEvent): Promise<DiscordWebhooksTarget> {
-	if (DiscardCodecovComments && event.comment.user.id === CodecovBotId) return 'none';
-	if (DiscardVercelCommitComments && event.comment.user.id === VercelBotId) return 'none';
+	if (filterCommitComments(event)) return 'none';
 
 	const commitResponse = await request('GET /repos/{owner}/{repo}/commits/{ref}', {
 		owner: event.repository.owner.login,

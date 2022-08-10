@@ -5,13 +5,8 @@ import type {
 	PullRequestReviewEvent,
 	PullRequestReviewThreadEvent,
 } from '@octokit/webhooks-types';
-import {
-	CodecovBotId,
-	DiscardCodecovComments,
-	DiscardVercelPrComments,
-	PackageName,
-	VercelBotId,
-} from '../utils/constants.js';
+import { PackageName } from '../utils/constants.js';
+import { filterPrComments } from '../utils/filters.js';
 import { getPackageLabelTarget } from '../utils/functions.js';
 import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks.js';
 
@@ -23,8 +18,7 @@ import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks.js'
 export async function getPullRequestRewriteTarget(
 	event: PullRequestEvent | PullRequestReviewEvent | PullRequestReviewCommentEvent | PullRequestReviewThreadEvent,
 ): Promise<DiscordWebhooksTarget> {
-	if (DiscardCodecovComments && event.sender.id === CodecovBotId) return 'none';
-	if (DiscardVercelPrComments && event.sender.id === VercelBotId) return 'none';
+	if (filterPrComments(event)) return 'none';
 
 	// Workaround for pre-monorepo
 	if (event.pull_request.base.ref === 'v13') return 'discord.js';

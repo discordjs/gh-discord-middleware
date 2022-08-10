@@ -12,6 +12,16 @@ export enum CheckedEvent {
 	TagOrBranchDelete = 'delete',
 }
 
+export enum FilterCheckedEvent {
+	CommitComment = 'commit_comment',
+	IssueComment = 'issue_comment',
+	Issues = 'issues',
+	PullRequest = 'pull_request',
+	PullRequestReview = 'pull_request_review',
+	PullRequestReviewComment = 'pull_request_review_comment',
+	PullRequestReviewThread = 'pull_request_review_thread',
+}
+
 export enum PackageName {
 	Actions = 'actions',
 	Builders = 'builders',
