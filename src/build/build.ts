@@ -27,6 +27,8 @@ async function writeBuildConfig(destFolder: string) {
 		version: 3,
 		// Trailing slash, 404 handled by vercels own build step
 		routes: [],
+		// Cache modules and yarn cache
+		cache: ['node_modules/**', '.yarn/cache/**'],
 	};
 
 	if (hasMiddleware) {
@@ -47,7 +49,6 @@ async function writeBuildConfig(destFolder: string) {
 			handle: 'error',
 		},
 	);
-	console.log(JSON.stringify(config, null, 2));
 	await writeFile(pathJoin(destFolder, ConfigFileName), JSON.stringify(config, null, 2));
 }
 
