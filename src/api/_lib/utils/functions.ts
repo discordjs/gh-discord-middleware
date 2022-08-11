@@ -21,7 +21,7 @@ export function enumIncludes<StrictType extends Generic, Generic>(
  * @returns The determined target
  */
 export function getPotentialPackageTarget(potentialPackage: string) {
-	const target = PerPackageWebhooks[potentialPackage.toLowerCase() as PackageName];
+	const target = PerPackageWebhooks[potentialPackage.trim().toLowerCase() as PackageName];
 	// Probablly not often but if a package label is added that isn't accounted for it should just go to the monorepo webhook
 	// Same if user edits a packge name manually in an issue description
 	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
