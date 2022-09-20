@@ -23,7 +23,7 @@ export async function getCommitCommentRewriteTarget(event: CommitCommentEvent): 
 	let singlePackage: PackageName | null = null;
 
 	for (const name of Object.values(PackageName)) {
-		if (commit.files?.some((file) => file.filename.startsWith(`packages/${name}`))) {
+		if (commit.files?.some((file) => file.filename.startsWith(`packages/${name}/`))) {
 			if (singlePackage) return 'monorepo';
 			singlePackage = name;
 		}

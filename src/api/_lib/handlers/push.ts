@@ -15,13 +15,13 @@ export function getPushRewriteTarget(event: PushEvent): DiscordWebhooksTarget {
 
 	for (const commit of event.commits) {
 		for (const name of Object.values(PackageName)) {
-			if (commit.added.some((file) => file.startsWith(`packages/${name}`))) {
+			if (commit.added.some((file) => file.startsWith(`packages/${name}/`))) {
 				packages.add(name);
 			}
-			if (commit.modified.some((file) => file.startsWith(`packages/${name}`))) {
+			if (commit.modified.some((file) => file.startsWith(`packages/${name}/`))) {
 				packages.add(name);
 			}
-			if (commit.removed.some((file) => file.startsWith(`packages/${name}`))) {
+			if (commit.removed.some((file) => file.startsWith(`packages/${name}/`))) {
 				packages.add(name);
 			}
 		}
