@@ -1,6 +1,6 @@
 import type { CreateEvent, DeleteEvent } from '@octokit/webhooks-types';
 import { PackageName } from '../utils/constants.js';
-import { getPotentialPackageTarget } from '../utils/functions.js';
+import { getPotentialTarget } from '../utils/functions.js';
 import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
@@ -12,5 +12,5 @@ export function getTagOrBranchTarget(event: CreateEvent | DeleteEvent): DiscordW
 	let potentialPackage = event.ref.split('/')[1]?.split('@')[0];
 	if (!potentialPackage && /^\d+\.\d+\.\d+$/gm.test(event.ref)) potentialPackage = PackageName.DiscordJS;
 	if (!potentialPackage) return 'monorepo';
-	return getPotentialPackageTarget(potentialPackage);
+	return getPotentialTarget(potentialPackage);
 }

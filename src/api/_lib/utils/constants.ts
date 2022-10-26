@@ -22,6 +22,11 @@ export enum FilterCheckedEvent {
 	PullRequestReviewThread = 'pull_request_review_thread',
 }
 
+export enum AppName {
+	Guide = 'guide',
+	Website = 'website',
+}
+
 export enum PackageName {
 	Actions = 'actions',
 	Brokers = 'brokers',
@@ -29,7 +34,6 @@ export enum PackageName {
 	Collection = 'collection',
 	DiscordJS = 'discord.js',
 	Docgen = 'docgen',
-	Guide = 'guide',
 	Proxy = 'proxy',
 	ProxyContainer = 'proxy-container',
 	Rest = 'rest',
@@ -39,7 +43,6 @@ export enum PackageName {
 	Ui = 'ui',
 	Util = 'util',
 	Voice = 'voice',
-	Website = 'website',
 	Ws = 'ws',
 }
 

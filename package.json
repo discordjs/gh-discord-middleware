@@ -26,6 +26,7 @@
 	"dependencies": {
 		"@octokit/request": "^6.2.0",
 		"@octokit/request-error": "^3.0.0",
+		"@octokit/types": "^8.0.0",
 		"@octokit/webhooks-methods": "^3.0.0",
 		"node-fetch": "^3.2.10"
 	},

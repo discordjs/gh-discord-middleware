@@ -127,6 +127,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@octokit/openapi-types@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@octokit/openapi-types@npm:14.0.0"
+  checksum: 0a1f8f3be998cd82c5a640e9166d43fd183b33d5d36f5e1a9b81608e94d0da87c01ec46c9988f69cd26585d4e2ffc4d3ec99ee4f75e5fe997fc86dad0aa8293c
+  languageName: node
+  linkType: hard
+
 "@octokit/request-error@npm:^3.0.0":
   version: 3.0.0
   resolution: "@octokit/request-error@npm:3.0.0"
@@ -158,6 +165,15 @@ __metadata:
   dependencies:
     "@octokit/openapi-types": ^12.7.0
   checksum: 0e3d55e4bdef41e652a2e99a304cebada90f23a90619c49ab892a76ae908c4281316738453348c9ba30b32250ef5eda0a939c2af3aec5ca808acdf9922da420c
+  languageName: node
+  linkType: hard
+
+"@octokit/types@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@octokit/types@npm:8.0.0"
+  dependencies:
+    "@octokit/openapi-types": ^14.0.0
+  checksum: 1a0197b2c4c522ac90f145e02b3f8cb048a47f71c2c6bdbf021a03db7dd30ca92a899c0186acb401337f218efe44e60d33cc1cc68715b622bb75bc1a4e79515d
   languageName: node
   linkType: hard
 
@@ -1900,6 +1916,7 @@ __metadata:
   dependencies:
     "@octokit/request": ^6.2.0
     "@octokit/request-error": ^3.0.0
+    "@octokit/types": ^8.0.0
     "@octokit/webhooks-methods": ^3.0.0
     "@octokit/webhooks-types": ^6.2.4
     "@types/estree": ^1.0.0
