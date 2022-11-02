@@ -1,7 +1,7 @@
 import type { Endpoints } from '@octokit/types';
 import type { Label } from '@octokit/webhooks-types';
-import { AppName, PackageName } from './constants.js';
-import { DiscordWebhooksTarget, OverideWebhooks } from './webhooks.js';
+import { type AppName, AppNameValues, type PackageName, PackageNameValues } from './constants.js';
+import { DiscordWebhooksTarget, OverrideWebhooks } from './webhooks.js';
 
 /**
  * `Array#includes` but it works for enums
@@ -17,13 +17,26 @@ export function enumIncludes<StrictType extends Generic, Generic>(
 }
 
 /**
+ * `Array#includes` but it asserts the type
+ * @param array The array
+ * @param value The value to check includes for
+ * @returns Whether the array includes value (also asserts it to the array type)
+ */
+export function strictArrayIncludes<StrictType extends Generic, Generic>(
+	array: StrictType[],
+	value: Generic,
+): value is StrictType {
+	return array.includes(value as StrictType);
+}
+
+/**
  * Gets the final target for a package / app name, taking into account overrides
  * @param target The package / app name that is the initial target
  * @returns The determined final target
  */
 export function getFinalTarget(target: AppName | PackageName): DiscordWebhooksTarget {
 	// For some reason typescript doesn't get this
-	if (target in OverideWebhooks) return OverideWebhooks[target]!;
+	if (target in OverrideWebhooks) return OverrideWebhooks[target]!;
 	return target;
 }
 
@@ -34,7 +47,9 @@ export function getFinalTarget(target: AppName | PackageName): DiscordWebhooksTa
  */
 export function getPotentialTarget(potentialName: string) {
 	const conformedPotentialName = potentialName.trim().toLowerCase();
-	const isTarget = enumIncludes(AppName, conformedPotentialName) || enumIncludes(PackageName, conformedPotentialName);
+	const isTarget =
+		strictArrayIncludes(AppNameValues, conformedPotentialName) ||
+		strictArrayIncludes(PackageNameValues, conformedPotentialName);
 
 	// Probablly not often but if a package label is added that isn't accounted for it should just go to the monorepo webhook
 	// Same if user edits a packge name manually in an issue description
@@ -70,13 +85,13 @@ export function getTargetFromFiles(
 ) {
 	if (!files) return 'monorepo';
 	let singleTarget: AppName | PackageName | null = null;
-	for (const name of Object.values(AppName)) {
+	for (const name of AppNameValues) {
 		if (files.some((file) => file.filename.startsWith(`apps/${name}/`))) {
 			if (singleTarget) return 'monorepo';
 			singleTarget = name;
 		}
 	}
-	for (const name of Object.values(PackageName)) {
+	for (const name of PackageNameValues) {
 		if (files.some((file) => file.filename.startsWith(`packages/${name}/`))) {
 			if (singleTarget) return 'monorepo';
 			singleTarget = name;

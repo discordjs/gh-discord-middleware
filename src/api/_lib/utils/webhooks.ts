@@ -31,6 +31,6 @@ export const DiscordWebhooks = useForum ? ForumWebhooks : Webhooks;
 
 export type DiscordWebhooksTarget = keyof typeof DiscordWebhooks | 'none';
 
-export const OverideWebhooks: Partial<Record<AppName | PackageName, DiscordWebhooksTarget>> = {
+export const OverrideWebhooks: Partial<Record<AppName | PackageName, DiscordWebhooksTarget>> = {
 	'proxy-container': 'proxy',
 };

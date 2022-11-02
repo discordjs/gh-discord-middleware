@@ -1,5 +1,5 @@
 import type { PushEvent } from '@octokit/webhooks-types';
-import { AppName, PackageName } from '../utils/constants.js';
+import { type AppName, AppNameValues, type PackageName, PackageNameValues } from '../utils/constants.js';
 import { getFinalTarget } from '../utils/functions.js';
 import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
@@ -15,25 +15,27 @@ export function getPushRewriteTarget(event: PushEvent): DiscordWebhooksTarget {
 	const targets = new Set<AppName | PackageName>();
 
 	for (const commit of event.commits) {
-		for (const name of Object.values(AppName)) {
-			if (commit.added.some((file) => file.startsWith(`apps/${name}/`))) {
+		for (const name of AppNameValues) {
+			const prefix = `apps/${name}/`;
+			if (commit.added.some((file) => file.startsWith(prefix))) {
 				targets.add(name);
 			}
-			if (commit.modified.some((file) => file.startsWith(`apps/${name}/`))) {
+			if (commit.modified.some((file) => file.startsWith(prefix))) {
 				targets.add(name);
 			}
-			if (commit.removed.some((file) => file.startsWith(`apps/${name}/`))) {
+			if (commit.removed.some((file) => file.startsWith(prefix))) {
 				targets.add(name);
 			}
 		}
-		for (const name of Object.values(PackageName)) {
-			if (commit.added.some((file) => file.startsWith(`packages/${name}/`))) {
+		for (const name of PackageNameValues) {
+			const prefix = `packages/${name}/`;
+			if (commit.added.some((file) => file.startsWith(prefix))) {
 				targets.add(name);
 			}
-			if (commit.modified.some((file) => file.startsWith(`packages/${name}/`))) {
+			if (commit.modified.some((file) => file.startsWith(prefix))) {
 				targets.add(name);
 			}
-			if (commit.removed.some((file) => file.startsWith(`packages/${name}/`))) {
+			if (commit.removed.some((file) => file.startsWith(prefix))) {
 				targets.add(name);
 			}
 		}

@@ -27,6 +27,8 @@ export enum AppName {
 	Website = 'website',
 }
 
+export const AppNameValues = Object.values(AppName);
+
 export enum PackageName {
 	Actions = 'actions',
 	Brokers = 'brokers',
@@ -45,6 +47,8 @@ export enum PackageName {
 	Voice = 'voice',
 	Ws = 'ws',
 }
+
+export const PackageNameValues = Object.values(PackageName);
 
 export const DiscardVercelPrComments = process.env.DISCARD_VERCEL_PR_COMMENTS === 'true';
 export const DiscardVercelCommitComments = process.env.DISCARD_VERCEL_COMMIT_COMMENTS === 'true';
