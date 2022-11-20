@@ -1,7 +1,19 @@
-import type { PushEvent } from '@octokit/webhooks-types';
+import type { Commit, PushEvent } from '@octokit/webhooks-types';
 import { type AppName, AppNameValues, type PackageName, PackageNameValues } from '../utils/constants.js';
 import { getFinalTarget } from '../utils/functions.js';
 import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
+
+/**
+ * Checks if a paths files were modified
+ * @param prefix The paths whos files to check
+ * @param commit The commit details
+ */
+function checkModified(prefix: string, commit: Commit) {
+	return (
+		commit.added.some((file) => file.startsWith(prefix)) ||
+		commit.modified.some((file) => file.startsWith(prefix) || commit.removed.some((file) => file.startsWith(prefix)))
+	);
+}
 
 /**
  * Gets the target for incoming push type webhooks
@@ -16,26 +28,12 @@ export function getPushRewriteTarget(event: PushEvent): DiscordWebhooksTarget {
 
 	for (const commit of event.commits) {
 		for (const name of AppNameValues) {
-			const prefix = `apps/${name}/`;
-			if (commit.added.some((file) => file.startsWith(prefix))) {
-				targets.add(name);
-			}
-			if (commit.modified.some((file) => file.startsWith(prefix))) {
-				targets.add(name);
-			}
-			if (commit.removed.some((file) => file.startsWith(prefix))) {
+			if (checkModified(`apps/${name}`, commit)) {
 				targets.add(name);
 			}
 		}
 		for (const name of PackageNameValues) {
-			const prefix = `packages/${name}/`;
-			if (commit.added.some((file) => file.startsWith(prefix))) {
-				targets.add(name);
-			}
-			if (commit.modified.some((file) => file.startsWith(prefix))) {
-				targets.add(name);
-			}
-			if (commit.removed.some((file) => file.startsWith(prefix))) {
+			if (checkModified(`packages/${name}`, commit)) {
 				targets.add(name);
 			}
 		}
