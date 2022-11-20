@@ -11,7 +11,8 @@ import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 function checkModified(prefix: string, commit: Commit) {
 	return (
 		commit.added.some((file) => file.startsWith(prefix)) ||
-		commit.modified.some((file) => file.startsWith(prefix) || commit.removed.some((file) => file.startsWith(prefix)))
+		commit.modified.some((file) => file.startsWith(prefix)) ||
+		commit.removed.some((file) => file.startsWith(prefix))
 	);
 }
 
