@@ -1,8 +1,8 @@
 import { request } from '@octokit/request';
 import type { CommitCommentEvent } from '@octokit/webhooks-types';
-import { PackageName } from '../utils/constants.js';
 import { filterCommitComments } from '../utils/filters.js';
-import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks.js';
+import { getTargetFromFiles } from '../utils/functions.js';
+import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
  * Gets the target for incoming commit comment type webhooks
@@ -20,15 +20,5 @@ export async function getCommitCommentRewriteTarget(event: CommitCommentEvent): 
 
 	const commit = commitResponse.data;
 
-	let singlePackage: PackageName | null = null;
-
-	for (const name of Object.values(PackageName)) {
-		if (commit.files?.some((file) => file.filename.startsWith(`packages/${name}/`))) {
-			if (singlePackage) return 'monorepo';
-			singlePackage = name;
-		}
-	}
-
-	if (!singlePackage) return 'monorepo';
-	return PerPackageWebhooks[singlePackage];
+	return getTargetFromFiles(commit.files);
 }

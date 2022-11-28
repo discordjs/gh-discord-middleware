@@ -1,6 +1,6 @@
 import type { IssueCommentEvent, IssuesEvent } from '@octokit/webhooks-types';
 import { filterPrComments } from '../utils/filters.js';
-import { getPackageLabelTarget, getPotentialPackageTarget } from '../utils/functions.js';
+import { getLabelTarget, getPotentialTarget } from '../utils/functions.js';
 import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
@@ -11,8 +11,8 @@ import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 export function getIssueRewriteTarget(event: IssueCommentEvent | IssuesEvent): DiscordWebhooksTarget {
 	if (filterPrComments(event)) return 'none';
 
-	const packageLabel = getPackageLabelTarget(event.issue.labels);
-	if (packageLabel) return packageLabel;
+	const label = getLabelTarget(event.issue.labels);
+	if (label) return label;
 
 	if (!event.issue.body) return 'monorepo';
 
@@ -22,5 +22,5 @@ export function getIssueRewriteTarget(event: IssueCommentEvent | IssuesEvent): D
 
 	const potentialPackage = splitBody[2];
 	if (!potentialPackage) return 'monorepo';
-	return getPotentialPackageTarget(potentialPackage);
+	return getPotentialTarget(potentialPackage);
 }

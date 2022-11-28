@@ -5,10 +5,9 @@ import type {
 	PullRequestReviewEvent,
 	PullRequestReviewThreadEvent,
 } from '@octokit/webhooks-types';
-import { PackageName } from '../utils/constants.js';
 import { filterPrComments } from '../utils/filters.js';
-import { getPackageLabelTarget } from '../utils/functions.js';
-import { DiscordWebhooksTarget, PerPackageWebhooks } from '../utils/webhooks.js';
+import { getLabelTarget, getTargetFromFiles } from '../utils/functions.js';
+import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
  * Gets the target for incoming pull request and subsidary type webhooks
@@ -23,8 +22,8 @@ export async function getPullRequestRewriteTarget(
 	// Workaround for pre-monorepo
 	if (event.pull_request.base.ref === 'v13') return 'discord.js';
 
-	const packageLabel = getPackageLabelTarget(event.pull_request.labels);
-	if (packageLabel && packageLabel !== 'monorepo') return packageLabel;
+	const label = getLabelTarget(event.pull_request.labels);
+	if (label && label !== 'monorepo') return label;
 
 	const filesResponse = await request('GET /repos/{owner}/{repo}/pulls/{pull_number}/files', {
 		owner: event.repository.owner.login,
@@ -34,15 +33,5 @@ export async function getPullRequestRewriteTarget(
 
 	const files = filesResponse.data;
 
-	let singlePackage: PackageName | null = null;
-
-	for (const name of Object.values(PackageName)) {
-		if (files.some((file) => file.filename.startsWith(`packages/${name}/`))) {
-			if (singlePackage) return 'monorepo';
-			singlePackage = name;
-		}
-	}
-
-	if (!singlePackage) return 'monorepo';
-	return PerPackageWebhooks[singlePackage];
+	return getTargetFromFiles(files);
 }
