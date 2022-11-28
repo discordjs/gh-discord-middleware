@@ -31,9 +31,11 @@ export const AppNameValues = Object.values(AppName);
 
 export enum PackageName {
 	Actions = 'actions',
+	ApiExtractorUtils = 'api-extractor-utils',
 	Brokers = 'brokers',
 	Builders = 'builders',
 	Collection = 'collection',
+	Core = 'core',
 	DiscordJS = 'discord.js',
 	Docgen = 'docgen',
 	Proxy = 'proxy',
