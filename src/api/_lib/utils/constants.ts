@@ -38,6 +38,7 @@ export enum PackageName {
 	Core = 'core',
 	DiscordJS = 'discord.js',
 	Docgen = 'docgen',
+	Formatters = 'formatters',
 	Proxy = 'proxy',
 	ProxyContainer = 'proxy-container',
 	Rest = 'rest',
