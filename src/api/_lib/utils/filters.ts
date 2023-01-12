@@ -13,6 +13,8 @@ import {
 	DiscardVercelPrComments,
 	DiscardVercelCommitComments,
 	VercelBotId,
+	GithubActionsBotId,
+	DiscardGithubActionsPrComments,
 } from '../utils/constants.js';
 
 export function filterPrComments(
@@ -26,6 +28,7 @@ export function filterPrComments(
 ): boolean {
 	if (DiscardCodecovComments && event.sender.id === CodecovBotId) return true;
 	if (DiscardVercelPrComments && event.sender.id === VercelBotId) return true;
+	if (DiscardGithubActionsPrComments && event.sender.id === GithubActionsBotId) return true;
 	return false;
 }
 
