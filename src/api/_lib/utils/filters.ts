@@ -15,6 +15,7 @@ import {
 	VercelBotId,
 	GithubActionsBotId,
 	DiscardGithubActionsPrComments,
+	DiscardGithubActionsCommitComments,
 } from '../utils/constants.js';
 
 export function filterPrComments(
@@ -35,5 +36,6 @@ export function filterPrComments(
 export function filterCommitComments(event: CommitCommentEvent): boolean {
 	if (DiscardCodecovComments && event.comment.user.id === CodecovBotId) return true;
 	if (DiscardVercelCommitComments && event.comment.user.id === VercelBotId) return true;
+	if (DiscardGithubActionsCommitComments && event.comment.user.id === GithubActionsBotId) return true;
 	return false;
 }

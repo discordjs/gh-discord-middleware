@@ -60,4 +60,5 @@ export const VercelBotId = 35613825;
 export const DiscardCodecovComments = process.env.DISCARD_CODECOV_COMMENTS === 'true';
 export const CodecovBotId = 22429695;
 export const DiscardGithubActionsPrComments = process.env.DISCARD_GITHUB_ACTIONS_PR_COMMENTS === 'true';
+export const DiscardGithubActionsCommitComments = process.env.DISCARD_GITHUB_ACTIONS_COMMIT_COMMENTS === 'true';
 export const GithubActionsBotId = 41898282;
