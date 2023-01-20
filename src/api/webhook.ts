@@ -131,12 +131,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 				if (reset) res.setHeader('x-ratelimit-reset', reset);
 			}
 
-			respondJSON(res, error.status === 429 ? 429 : 500, 'An error occured in an upstream fetch request', error);
+			respondJSON(res, error.status === 429 ? 429 : 500, 'An error occurred in an upstream fetch request', error);
 			return;
 		}
 
-		// Some other error occured, we don't know what it is
-		respondJSON(res, 500, 'An unexpected error occured while processing the event', error);
+		// Some other error occurred, we don't know what it is
+		respondJSON(res, 500, 'An unexpected error occurred while processing the event', error);
 		return;
 	}
 
