@@ -305,7 +305,7 @@ export interface ServerlessFunctionConfig {
 	maxDuration?: number;
 	/**
 	 * Map of additional environment variables that will be available to the Serverless Function,
-	 * in addition to the env vars specifed in the Project Settings.
+	 * in addition to the env vars specified in the Project Settings.
 	 */
 	environment?: Record<string, string>;
 	allowQuery?: string[];

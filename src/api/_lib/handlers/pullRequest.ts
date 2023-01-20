@@ -10,7 +10,7 @@ import { getLabelTarget, getTargetFromFiles } from '../utils/functions.js';
 import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
- * Gets the target for incoming pull request and subsidary type webhooks
+ * Gets the target for incoming pull request and subsidiary type webhooks
  *
  * @param event - The event data
  * @returns The target name
