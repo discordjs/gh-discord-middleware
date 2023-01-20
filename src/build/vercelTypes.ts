@@ -105,7 +105,7 @@ export interface Locale {
 	 */
 	redirect?: Record<string, string>;
 	/**
-	 * Cookie name that can override the Accept-Language header for determing the current locale.
+	 * Cookie name that can override the Accept-Language header for determining the current locale.
 	 */
 	cookie?: string;
 }
