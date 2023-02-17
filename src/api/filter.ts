@@ -104,7 +104,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 		}
 	} catch (error) {
 		// Some other error occurred, we don't know what it is
-		respondJSON(res, 500, 'An unexpected error occured while processing the event', error);
+		respondJSON(res, 500, 'An unexpected error occurred while processing the event', error);
 		return;
 	}
 
