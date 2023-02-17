@@ -11,11 +11,12 @@ import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
  * Gets the target for incoming pull request and subsidary type webhooks
- * @param event The event data
+ *
+ * @param event - The event data
  * @returns The target name
  */
 export async function getPullRequestRewriteTarget(
-	event: PullRequestEvent | PullRequestReviewEvent | PullRequestReviewCommentEvent | PullRequestReviewThreadEvent,
+	event: PullRequestEvent | PullRequestReviewCommentEvent | PullRequestReviewEvent | PullRequestReviewThreadEvent,
 ): Promise<DiscordWebhooksTarget> {
 	if (filterPrComments(event)) return 'none';
 

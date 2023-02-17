@@ -5,7 +5,8 @@ import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
  * Gets the target for incoming create or delete type webhooks
- * @param event The event data
+ *
+ * @param event - The event data
  * @returns The target name
  */
 export function getTagOrBranchTarget(event: CreateEvent | DeleteEvent): DiscordWebhooksTarget {

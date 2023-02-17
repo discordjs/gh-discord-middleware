@@ -33,6 +33,7 @@ async function rewrite(req: VercelRequest, res: VercelResponse, target: string) 
 		if (req.headers['x-github-hook-installation-target-id']) {
 			headers['X-GitHub-Hook-Installation-Target-ID'] = req.headers['x-github-hook-installation-target-id'] as string;
 		}
+
 		if (req.headers['x-github-hook-installation-target-type']) {
 			headers['X-GitHub-Hook-Installation-Target-Type'] = req.headers[
 				'x-github-hook-installation-target-type'
@@ -43,8 +44,8 @@ async function rewrite(req: VercelRequest, res: VercelResponse, target: string) 
 		const discordHeaders = [...discordRes.headers];
 		res.writeHead(discordRes.status, discordRes.statusText, discordHeaders);
 		discordRes.body?.pipe(res);
-	} catch (err) {
-		respondJSON(res, 500, `Error while forwarding request to discord`, err);
+	} catch (error) {
+		respondJSON(res, 500, `Error while forwarding request to discord`, error);
 	}
 }
 
@@ -65,6 +66,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 		res.writeHead(400).end('Not a github event');
 		return;
 	}
+
 	if (!eventName || !enumIncludes(FilterCheckedEvent, eventName)) return rewrite(req, res, rewriteUrl);
 
 	const eventData = req.body as WebhookEvent;
@@ -72,8 +74,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 		switch (eventName) {
 			case FilterCheckedEvent.CommitComment:
 				if (filterCommitComments(eventData as CommitCommentEvent)) {
-					return skip(res);
+					skip(res);
+					return;
 				}
+
 				break;
 			case FilterCheckedEvent.IssueComment:
 			case FilterCheckedEvent.Issues:
@@ -87,18 +91,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 							| IssueCommentEvent
 							| IssuesEvent
 							| PullRequestEvent
-							| PullRequestReviewEvent
 							| PullRequestReviewCommentEvent
+							| PullRequestReviewEvent
 							| PullRequestReviewThreadEvent,
 					)
 				) {
-					return skip(res);
+					skip(res);
+					return;
 				}
+
 				break;
 		}
-	} catch (err) {
+	} catch (error) {
 		// Some other error occured, we don't know what it is
-		return respondJSON(res, 500, 'An unexpected error occured while processing the event', err);
+		respondJSON(res, 500, 'An unexpected error occured while processing the event', error);
+		return;
 	}
 
 	await rewrite(req, res, rewriteUrl);

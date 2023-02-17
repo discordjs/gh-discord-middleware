@@ -5,7 +5,8 @@ import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
  * Gets the target for incoming release type webhooks
- * @param event The event data
+ *
+ * @param event - The event data
  * @returns The target name
  */
 export function getReleaseRewriteTarget(event: ReleaseEvent): DiscordWebhooksTarget {

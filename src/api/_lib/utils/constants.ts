@@ -1,3 +1,5 @@
+import process from 'node:process';
+
 export enum CheckedEvent {
 	CommitComment = 'commit_comment',
 	IssueComment = 'issue_comment',
@@ -56,9 +58,9 @@ export const PackageNameValues = Object.values(PackageName);
 
 export const DiscardVercelPrComments = process.env.DISCARD_VERCEL_PR_COMMENTS === 'true';
 export const DiscardVercelCommitComments = process.env.DISCARD_VERCEL_COMMIT_COMMENTS === 'true';
-export const VercelBotId = 35613825;
+export const VercelBotId = 35_613_825;
 export const DiscardCodecovComments = process.env.DISCARD_CODECOV_COMMENTS === 'true';
-export const CodecovBotId = 22429695;
+export const CodecovBotId = 22_429_695;
 export const DiscardGithubActionsPrComments = process.env.DISCARD_GITHUB_ACTIONS_PR_COMMENTS === 'true';
 export const DiscardGithubActionsCommitComments = process.env.DISCARD_GITHUB_ACTIONS_COMMIT_COMMENTS === 'true';
-export const GithubActionsBotId = 41898282;
+export const GithubActionsBotId = 41_898_282;

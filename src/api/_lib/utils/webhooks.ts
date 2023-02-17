@@ -1,3 +1,4 @@
+import process from 'node:process';
 import { AppName, PackageName } from './constants.js';
 
 const useForum = process.env.USE_FORUM === 'true';
@@ -12,7 +13,7 @@ if (typeof webhookBase !== 'string') {
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 const Webhooks = {
 	monorepo: process.env.DISCORD_WEBHOOK_MONOREPO,
-} as Record<`${AppName | PackageName}` | 'monorepo', string | undefined>;
+} as Record<'monorepo' | `${AppName | PackageName}`, string | undefined>;
 
 for (const packageName of Object.entries(PackageName)) {
 	Webhooks[packageName[1]] = process.env[`DISCORD_WEBHOOK_${packageName[0].toUpperCase()}`];
@@ -22,9 +23,8 @@ for (const appName of Object.entries(AppName)) {
 	Webhooks[appName[1]] = process.env[`DISCORD_WEBHOOK_${appName[0].toUpperCase()}`];
 }
 
-const ForumWebhooks = Object.entries(Webhooks).reduce(
-	(acc, [pack, val]) => ({ ...acc, [pack]: val ? `${webhookBase}?thread_id=${val}` : undefined }),
-	{},
+const ForumWebhooks = Object.fromEntries(
+	Object.entries(Webhooks).map(([pack, val]) => [pack, val ? `${webhookBase}?thread_id=${val}` : undefined]),
 ) as typeof Webhooks;
 
 export const DiscordWebhooks = useForum ? ForumWebhooks : Webhooks;

@@ -1,12 +1,13 @@
 import type { Endpoints } from '@octokit/types';
 import type { Label } from '@octokit/webhooks-types';
 import { type AppName, AppNameValues, type PackageName, PackageNameValues } from './constants.js';
-import { DiscordWebhooksTarget, OverrideWebhooks } from './webhooks.js';
+import { type DiscordWebhooksTarget, OverrideWebhooks } from './webhooks.js';
 
 /**
  * `Array#includes` but it works for enums
- * @param enumeration The enum
- * @param value The value to check includes for
+ *
+ * @param enumeration - The enum
+ * @param value - The value to check includes for
  * @returns Whether the enum includes value (also asserts it to the array type)
  */
 export function enumIncludes<StrictType extends Generic, Generic>(
@@ -18,8 +19,9 @@ export function enumIncludes<StrictType extends Generic, Generic>(
 
 /**
  * `Array#includes` but it asserts the type
- * @param array The array
- * @param value The value to check includes for
+ *
+ * @param array - The array
+ * @param value - The value to check includes for
  * @returns Whether the array includes value (also asserts it to the array type)
  */
 export function strictArrayIncludes<StrictType extends Generic, Generic>(
@@ -31,7 +33,8 @@ export function strictArrayIncludes<StrictType extends Generic, Generic>(
 
 /**
  * Gets the final target for a package / app name, taking into account overrides
- * @param target The package / app name that is the initial target
+ *
+ * @param target - The package / app name that is the initial target
  * @returns The determined final target
  */
 export function getFinalTarget(target: AppName | PackageName): DiscordWebhooksTarget {
@@ -42,7 +45,8 @@ export function getFinalTarget(target: AppName | PackageName): DiscordWebhooksTa
 
 /**
  * Gets the target for a (potential) package / app name, if the package / app name isn't found, returns `monorepo`
- * @param potentialName The package / app name to try to get a target for
+ *
+ * @param potentialName - The package / app name to try to get a target for
  * @returns The determined target
  */
 export function getPotentialTarget(potentialName: string) {
@@ -60,7 +64,8 @@ export function getPotentialTarget(potentialName: string) {
 
 /**
  * Get the target for a pull request or issue with labels, null if there were no identifying labels
- * @param labels The labels on the pull request or issue
+ *
+ * @param labels - The labels on the pull request or issue
  * @returns The determined target
  */
 export function getLabelTarget(labels?: Label[]) {
@@ -75,7 +80,8 @@ export function getLabelTarget(labels?: Label[]) {
 
 /**
  * Get the target for a pull request or commit comment based on the changed files
- * @param files The files as returned by github
+ *
+ * @param files - The files as returned by github
  * @returns The determined target
  */
 export function getTargetFromFiles(
@@ -91,12 +97,14 @@ export function getTargetFromFiles(
 			singleTarget = name;
 		}
 	}
+
 	for (const name of PackageNameValues) {
 		if (files.some((file) => file.filename.startsWith(`packages/${name}/`))) {
 			if (singleTarget) return 'monorepo';
 			singleTarget = name;
 		}
 	}
+
 	if (!singleTarget) return 'monorepo';
 	return getFinalTarget(singleTarget);
 }

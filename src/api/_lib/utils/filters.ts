@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/prefer-single-boolean-return */
 import type {
 	CommitCommentEvent,
 	IssueCommentEvent,

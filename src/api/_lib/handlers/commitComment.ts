@@ -6,7 +6,8 @@ import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
  * Gets the target for incoming commit comment type webhooks
- * @param event The event data
+ *
+ * @param event - The event data
  * @returns The target name
  */
 export async function getCommitCommentRewriteTarget(event: CommitCommentEvent): Promise<DiscordWebhooksTarget> {

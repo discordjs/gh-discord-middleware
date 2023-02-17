@@ -38,6 +38,7 @@ async function rewrite(req: VercelRequest, res: VercelResponse, target: Exclude<
 			originalBody.repository.full_name = `${originalBody.repository.full_name.split('/')[0]!}/${target}`;
 		}
 	}
+
 	if (!url) {
 		res.writeHead(500, 'Cannot process request due to missing server side keys').end();
 		return;
@@ -55,6 +56,7 @@ async function rewrite(req: VercelRequest, res: VercelResponse, target: Exclude<
 		if (req.headers['x-github-hook-installation-target-id']) {
 			headers['X-GitHub-Hook-Installation-Target-ID'] = req.headers['x-github-hook-installation-target-id'] as string;
 		}
+
 		if (req.headers['x-github-hook-installation-target-type']) {
 			headers['X-GitHub-Hook-Installation-Target-Type'] = req.headers[
 				'x-github-hook-installation-target-type'
@@ -65,8 +67,8 @@ async function rewrite(req: VercelRequest, res: VercelResponse, target: Exclude<
 		const discordHeaders = [...discordRes.headers];
 		res.writeHead(discordRes.status, discordRes.statusText, discordHeaders);
 		discordRes.body?.pipe(res);
-	} catch (err) {
-		respondJSON(res, 500, `Error while forwarding request to discord`, err);
+	} catch (error) {
+		respondJSON(res, 500, `Error while forwarding request to discord`, error);
 	}
 }
 
@@ -76,6 +78,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 		res.writeHead(400).end('Not a github event');
 		return;
 	}
+
 	if (!eventName || !enumIncludes(CheckedEvent, eventName)) return rewrite(req, res, 'monorepo');
 
 	const eventData = req.body as WebhookEvent;
@@ -96,8 +99,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 				target = await getPullRequestRewriteTarget(
 					eventData as
 						| PullRequestEvent
-						| PullRequestReviewEvent
 						| PullRequestReviewCommentEvent
+						| PullRequestReviewEvent
 						| PullRequestReviewThreadEvent,
 				);
 				break;
@@ -112,25 +115,29 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 				target = getTagOrBranchTarget(eventData as CreateEvent | DeleteEvent);
 				break;
 		}
-	} catch (err) {
+	} catch (error) {
 		// Github request errored in some way
-		if (err instanceof RequestError) {
-			if (err.status === 404) {
+		if (error instanceof RequestError) {
+			if (error.status === 404) {
 				return rewrite(req, res, 'monorepo');
 			}
-			if (err.response) {
-				const limit = err.response.headers['x-ratelimit-limit'];
+
+			if (error.response) {
+				const limit = error.response.headers['x-ratelimit-limit'];
 				if (limit) res.setHeader('x-ratelimit-limit', limit);
-				const remaining = err.response.headers['x-ratelimit-remaining'];
+				const remaining = error.response.headers['x-ratelimit-remaining'];
 				if (remaining) res.setHeader('x-ratelimit-remaining', remaining);
-				const reset = err.response.headers['x-ratelimit-reset'];
+				const reset = error.response.headers['x-ratelimit-reset'];
 				if (reset) res.setHeader('x-ratelimit-reset', reset);
 			}
-			return respondJSON(res, err.status === 429 ? 429 : 500, 'An error occured in an upstream fetch request', err);
+
+			respondJSON(res, error.status === 429 ? 429 : 500, 'An error occured in an upstream fetch request', error);
+			return;
 		}
 
 		// Some other error occured, we don't know what it is
-		return respondJSON(res, 500, 'An unexpected error occured while processing the event', err);
+		respondJSON(res, 500, 'An unexpected error occured while processing the event', error);
+		return;
 	}
 
 	if (target === 'none') {

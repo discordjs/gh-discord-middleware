@@ -1,5 +1,6 @@
 import { copyFile, mkdir, readFile, writeFile, readdir, stat } from 'node:fs/promises';
 import { dirname, basename, relative, join as pathJoin, sep as pathSep } from 'node:path';
+import process from 'node:process';
 import { nodeFileTrace } from '@vercel/nft';
 import * as acorn from 'acorn';
 import type { Program } from 'estree';
@@ -16,10 +17,10 @@ import type { Config, EdgeFunctionConfig, NodejsServerlessFunctionConfig } from 
 let hasMiddleware = false;
 
 interface Entrypoint {
-	source: string;
-	destFolder: string;
 	destFile: string;
+	destFolder: string;
 	isEdge?: boolean;
+	source: string;
 }
 
 async function writeBuildConfig(destFolder: string) {
@@ -71,10 +72,11 @@ async function writeFunctionConfig(func: Entrypoint) {
 		};
 		config = nodeConfig;
 	}
+
 	await writeFile(pathJoin(func.destFolder, FunctionConfigFileName), JSON.stringify(config, null, 2));
 }
 
-function isProgramTree(ast: acorn.Node): ast is Program & { start: number; end: number; loc?: acorn.SourceLocation } {
+function isProgramTree(ast: acorn.Node): ast is Program & { end: number; loc?: acorn.SourceLocation; start: number } {
 	return ast.type === 'Program';
 }
 
@@ -86,7 +88,7 @@ async function isEdgeFunction(fileName: string) {
 
 	// Generate AST to figure out of there is a config export and what it is if so
 	const rawFile = (await readFile(fileName)).toString();
-	const ast = acorn.parse(rawFile, { ecmaVersion: 2022, allowAwaitOutsideFunction: true, sourceType: 'module' });
+	const ast = acorn.parse(rawFile, { ecmaVersion: 2_022, allowAwaitOutsideFunction: true, sourceType: 'module' });
 	if (!isProgramTree(ast)) return false;
 	for (const node of ast.body) {
 		// Is this a named export
@@ -106,11 +108,12 @@ async function isEdgeFunction(fileName: string) {
 			// We only care about runtime
 			if (property.key.type !== 'Identifier' || property.key.name !== 'runtime') continue;
 			if (property.value.type !== 'Literal') return false;
-			if (property.value.value === 'experimental-edge') return true;
-			return false;
+			return property.value.value === 'experimental-edge';
 		}
+
 		return false;
 	}
+
 	return false;
 }
 
@@ -126,8 +129,8 @@ async function copyFileWithMap(source: string, dest: string) {
 
 async function findEntrypoints(source: string, destination: string, base = source): Promise<Entrypoint[]> {
 	if (basename(source).startsWith('_')) return [];
-	const fileInfo = await stat(source).catch((err) => {
-		console.error(`Error reading stats for ${source}`, err);
+	const fileInfo = await stat(source).catch((error) => {
+		console.error(`Error reading stats for ${source}`, error);
 	});
 	if (!fileInfo) return [];
 	if (fileInfo.isFile()) {
@@ -138,10 +141,12 @@ async function findEntrypoints(source: string, destination: string, base = sourc
 			);
 			return [{ source, destFolder, destFile: pathJoin(destFolder, relative(base, source)) }];
 		}
+
 		return [];
 	}
-	const files = await readdir(source).catch((err) => {
-		console.error(`Error reading folder ${source}`, err);
+
+	const files = await readdir(source).catch((error) => {
+		console.error(`Error reading folder ${source}`, error);
 	});
 	if (!files) return [];
 	const output: Entrypoint[] = [];
@@ -150,6 +155,7 @@ async function findEntrypoints(source: string, destination: string, base = sourc
 		const entries = await findEntrypoints(pathJoin(source, file), pathJoin(destination, file), base);
 		output.push(...entries);
 	}
+
 	return output;
 }
 
@@ -173,8 +179,10 @@ for (const entry of entrypoints) {
 			split.shift();
 			resolvedFile = pathJoin(...split);
 		}
+
 		await copyFileWithMap(file, pathJoin(entry.destFolder, resolvedFile));
 	}
+
 	await writeFunctionConfig(entry);
 }
 

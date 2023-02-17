@@ -5,8 +5,9 @@ import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
  * Checks if a paths files were modified
- * @param prefix The paths whos files to check
- * @param commit The commit details
+ *
+ * @param prefix - The paths whos files to check
+ * @param commit - The commit details
  */
 function checkModified(prefix: string, commit: Commit) {
 	return (
@@ -18,7 +19,8 @@ function checkModified(prefix: string, commit: Commit) {
 
 /**
  * Gets the target for incoming push type webhooks
- * @param event The event data
+ *
+ * @param event - The event data
  * @returns The target name
  */
 export function getPushRewriteTarget(event: PushEvent): DiscordWebhooksTarget {
@@ -33,6 +35,7 @@ export function getPushRewriteTarget(event: PushEvent): DiscordWebhooksTarget {
 				targets.add(name);
 			}
 		}
+
 		for (const name of PackageNameValues) {
 			if (checkModified(`packages/${name}`, commit)) {
 				targets.add(name);

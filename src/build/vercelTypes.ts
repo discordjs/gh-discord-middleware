@@ -1,3 +1,4 @@
+/* eslint-disable typescript-sort-keys/interface */
 /**
  * Schema for `config.json`
  *
@@ -42,7 +43,7 @@ export interface Config {
  * Routes may be used to point certain URL paths to others on your Deployment, attach response headers to paths,
  * and various other routing-related use-cases.
  */
-export type Route = Source | Handler;
+export type Route = Handler | Source;
 
 export interface Source {
 	/**
@@ -109,12 +110,12 @@ export interface Locale {
 	cookie?: string;
 }
 
-export type HasField = HostHasField | HeaderHasField | CookieHasField | QueryHasField;
+export type HasField = CookieHasField | HeaderHasField | HostHasField | QueryHasField;
 
 export const enum HasFieldType {
-	Host = 'host',
-	Header = 'header',
 	Cookie = 'cookie',
+	Header = 'header',
+	Host = 'host',
 	Query = 'query',
 }
 
@@ -171,12 +172,12 @@ export interface QueryHasField extends BaseHasField {
 }
 
 export type HandleValue =
-	| 'rewrite'
+	| 'error' //  check matches after error (500, 404, etc.)
 	| 'filesystem' // check matches after the filesystem misses
-	| 'resource'
-	| 'miss' // check matches after every filesystem miss
 	| 'hit'
-	| 'error'; //  check matches after error (500, 404, etc.)
+	| 'miss' // check matches after every filesystem miss
+	| 'resource'
+	| 'rewrite';
 
 /**
  * The routing system has multiple phases. The handle value indicates the start of a phase.
@@ -228,7 +229,8 @@ export interface ImagesConfig {
 	formats?: ImageFormat[];
 	/**
 	 * Allow SVG input image URLs. This is disabled by default for security purposes.
-	 * @default false
+	 *
+	 * @defaultValue false
 	 */
 	dangerouslyAllowSVG?: boolean;
 	/**
@@ -327,12 +329,14 @@ export interface NodejsServerlessFunctionConfig extends ServerlessFunctionConfig
 	launcherType: 'Nodejs';
 	/**
 	 * Enables request and response helpers methods.
-	 * @default false
+	 *
+	 * @defaultValue false
 	 */
 	shouldAddHelpers?: boolean;
 	/**
 	 * Enables source map generation.
-	 * @default false
+	 *
+	 * @defaultValue false
 	 */
 	shouldAddSourceMapSupport?: boolean;
 	/**
