@@ -55,8 +55,8 @@ export function getPotentialTarget(potentialName: string) {
 		strictArrayIncludes(AppNameValues, conformedPotentialName) ||
 		strictArrayIncludes(PackageNameValues, conformedPotentialName);
 
-	// Probablly not often but if a package label is added that isn't accounted for it should just go to the monorepo webhook
-	// Same if user edits a packge name manually in an issue description
+	// Probably not often but if a package label is added that isn't accounted for it should just go to the monorepo webhook
+	// Same if user edits a package name manually in an issue description
 	if (!isTarget) return 'monorepo';
 
 	return getFinalTarget(conformedPotentialName);

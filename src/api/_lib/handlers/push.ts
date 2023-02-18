@@ -6,7 +6,7 @@ import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 /**
  * Checks if a paths files were modified
  *
- * @param prefix - The paths whos files to check
+ * @param prefix - The paths whose files to check
  * @param commit - The commit details
  */
 function checkModified(prefix: string, commit: Commit) {
