@@ -22,7 +22,6 @@
 		"declaration": false,
 		"declarationMap": false,
 		"importHelpers": true,
-		"importsNotUsedAsValues": "error",
 		"inlineSources": true,
 		"newLine": "lf",
 		"noEmitHelpers": true,

@@ -28,25 +28,25 @@
 		"@octokit/request-error": "^3.0.3",
 		"@octokit/types": "^9.0.0",
 		"@octokit/webhooks-methods": "^3.0.2",
-		"node-fetch": "^3.3.0"
+		"node-fetch": "^3.3.1"
 	},
 	"devDependencies": {
-		"@octokit/webhooks-types": "^6.10.0",
-		"@types/estree": "^1.0.0",
+		"@octokit/webhooks-types": "^6.11.0",
+		"@types/estree": "^1.0.1",
 		"@vercel/nft": "0.22.6",
-		"@vercel/node": "^2.9.6",
+		"@vercel/node": "^2.10.3",
 		"acorn": "^8.8.2",
-		"eslint": "8.34.0",
-		"eslint-config-neon": "^0.1.40",
-		"eslint-formatter-pretty": "^4.1.0",
-		"prettier": "^2.8.4",
-		"rimraf": "^4.1.2",
-		"typescript": "4.9.5",
-		"vercel": "^28.16.2"
+		"eslint": "8.38.0",
+		"eslint-config-neon": "^0.1.42",
+		"eslint-formatter-pretty": "^5.0.0",
+		"prettier": "^2.8.7",
+		"rimraf": "^5.0.0",
+		"typescript": "5.0.4",
+		"vercel": "^28.18.5"
 	},
 	"packageManager": "yarn@3.2.2",
 	"resolutions": {
-		"@vercel/nft@0.21.0": "patch:@vercel/nft@npm:0.21.0#.yarn/patches/@vercel-nft-npm-0.21.0-3492f6e245.patch",
-		"@vercel/nft@0.22.6": "patch:@vercel/nft@npm:0.22.6#.yarn/patches/@vercel-nft-npm-0.22.6-6ebf98d01c.patch"
+		"@vercel/nft@0.22.6": "patch:@vercel/nft@npm:0.22.6#.yarn/patches/@vercel-nft-npm-0.22.6-6ebf98d01c.patch",
+		"@vercel/nft@0.22.5": "patch:@vercel/nft@npm:0.22.5#.yarn/patches/@vercel-nft-npm-0.22.5-05754c16a4.patch"
 	}
 }

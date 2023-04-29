@@ -20,7 +20,7 @@ import { getIssueRewriteTarget } from './_lib/handlers/issues.js';
 import { getPullRequestRewriteTarget } from './_lib/handlers/pullRequest.js';
 import { getPushRewriteTarget } from './_lib/handlers/push.js';
 import { getReleaseRewriteTarget } from './_lib/handlers/release.js';
-import { getTagOrBranchTarget } from './_lib/handlers/tagOrBanrch.js';
+import { getTagOrBranchTarget } from './_lib/handlers/tagOrBranch.js';
 import { CheckedEvent } from './_lib/utils/constants.js';
 import { enumIncludes } from './_lib/utils/functions.js';
 import { type DiscordWebhooksTarget, DiscordWebhooks } from './_lib/utils/webhooks.js';
