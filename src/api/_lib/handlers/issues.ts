@@ -19,9 +19,13 @@ export function getIssueRewriteTarget(event: IssueCommentEvent | IssuesEvent): D
 
 	const splitBody = event.issue.body.split('\n');
 
-	if (!splitBody[0]?.includes('Which package is')) return 'monorepo';
+	if (
+		splitBody.length < 3 ||
+		!/Which (?:application|package|application or package) is this (?:bug report|feature request) for\?/.test(
+			splitBody[0]!,
+		)
+	)
+		return 'monorepo';
 
-	const potentialPackage = splitBody[2];
-	if (!potentialPackage) return 'monorepo';
-	return getPotentialTarget(potentialPackage);
+	return getPotentialTarget(splitBody[2]!);
 }

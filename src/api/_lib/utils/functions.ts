@@ -1,6 +1,6 @@
 import type { Endpoints } from '@octokit/types';
 import type { Label } from '@octokit/webhooks-types';
-import { type AppName, AppNameValues, type PackageName, PackageNameValues } from './constants.js';
+import { AppName, AppNameValues, type PackageName, PackageNameValues } from './constants.js';
 import { type DiscordWebhooksTarget, OverrideWebhooks } from './webhooks.js';
 
 /**
@@ -50,7 +50,11 @@ export function getFinalTarget(target: AppName | PackageName): DiscordWebhooksTa
  * @returns The determined target
  */
 export function getPotentialTarget(potentialName: string) {
-	const conformedPotentialName = potentialName.trim().toLowerCase();
+	const parsedPotentialName = potentialName.trim().toLowerCase();
+
+	// "Documentation" is what appears on issues—not "Website".
+	const conformedPotentialName = parsedPotentialName === 'documentation' ? AppName.Website : parsedPotentialName;
+
 	const isTarget =
 		strictArrayIncludes(AppNameValues, conformedPotentialName) ||
 		strictArrayIncludes(PackageNameValues, conformedPotentialName);
