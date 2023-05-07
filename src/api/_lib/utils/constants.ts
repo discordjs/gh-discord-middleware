@@ -38,6 +38,7 @@ export enum PackageName {
 	Builders = 'builders',
 	Collection = 'collection',
 	Core = 'core',
+	CreateDiscordBot = "create-discord-bot",
 	DiscordJS = 'discord.js',
 	Docgen = 'docgen',
 	Formatters = 'formatters',
