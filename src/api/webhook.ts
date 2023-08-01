@@ -1,3 +1,4 @@
+import { STATUS_CODES } from 'node:http';
 import { RequestError } from '@octokit/request-error';
 import type {
 	CommitCommentEvent,
@@ -14,7 +15,7 @@ import type {
 	WebhookEvent,
 } from '@octokit/webhooks-types';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import fetch from 'node-fetch';
+import { request, type Dispatcher } from 'undici';
 import { getCommitCommentRewriteTarget } from './_lib/handlers/commitComment.js';
 import { getIssueRewriteTarget } from './_lib/handlers/issues.js';
 import { getPullRequestRewriteTarget } from './_lib/handlers/pullRequest.js';
@@ -63,9 +64,8 @@ async function rewrite(req: VercelRequest, res: VercelResponse, target: Exclude<
 			] as string;
 		}
 
-		const discordRes = await fetch(url, { body, headers, method: req.method });
-		const discordHeaders = [...discordRes.headers];
-		res.writeHead(discordRes.status, discordRes.statusText, discordHeaders);
+		const discordRes = await request(url, { body, headers, method: req.method as Dispatcher.HttpMethod | undefined });
+		res.writeHead(discordRes.statusCode, STATUS_CODES[discordRes.statusCode], discordRes.headers);
 		discordRes.body?.pipe(res);
 	} catch (error) {
 		respondJSON(res, 500, `Error while forwarding request to discord`, error);

@@ -24,29 +24,29 @@
 		"url": "https://github.com/ckohen/gh-discord-middleware/issues"
 	},
 	"dependencies": {
-		"@octokit/request": "^6.2.3",
-		"@octokit/request-error": "^3.0.3",
-		"@octokit/types": "^9.0.0",
-		"@octokit/webhooks-methods": "^3.0.2",
-		"node-fetch": "^3.3.1"
+		"@octokit/request": "^8.1.1",
+		"@octokit/request-error": "^5.0.0",
+		"@octokit/types": "^11.1.0",
+		"@octokit/webhooks-methods": "^4.0.0",
+		"undici": "^5.22.1"
 	},
 	"devDependencies": {
-		"@octokit/webhooks-types": "^6.11.0",
+		"@octokit/webhooks-types": "^7.1.0",
 		"@types/estree": "^1.0.1",
-		"@vercel/nft": "0.22.6",
-		"@vercel/node": "^2.10.3",
-		"acorn": "^8.8.2",
-		"eslint": "8.38.0",
-		"eslint-config-neon": "^0.1.42",
+		"@vercel/nft": "0.23.0",
+		"@vercel/node": "^2.15.7",
+		"acorn": "^8.10.0",
+		"eslint": "8.46.0",
+		"eslint-config-neon": "^0.1.47",
 		"eslint-formatter-pretty": "^5.0.0",
-		"prettier": "^2.8.7",
-		"rimraf": "^5.0.0",
-		"typescript": "5.0.4",
-		"vercel": "^28.18.5"
+		"prettier": "^2.8.8",
+		"rimraf": "^5.0.1",
+		"typescript": "5.1.6",
+		"vercel": "^31.2.1"
 	},
 	"packageManager": "yarn@3.2.2",
 	"resolutions": {
-		"@vercel/nft@0.22.6": "patch:@vercel/nft@npm:0.22.6#.yarn/patches/@vercel-nft-npm-0.22.6-6ebf98d01c.patch",
-		"@vercel/nft@0.22.5": "patch:@vercel/nft@npm:0.22.5#.yarn/patches/@vercel-nft-npm-0.22.5-05754c16a4.patch"
+		"@vercel/nft@0.22.5": "patch:@vercel/nft@npm:0.22.5#.yarn/patches/@vercel-nft-npm-0.22.5-05754c16a4.patch",
+		"@vercel/nft@0.23.0": "patch:@vercel/nft@npm:0.23.0#.yarn/patches/@vercel-nft-npm-0.23.0-ad6f12fb2f.patch"
 	}
 }

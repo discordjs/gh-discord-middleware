@@ -108,7 +108,7 @@ async function isEdgeFunction(fileName: string) {
 			// We only care about runtime
 			if (property.key.type !== 'Identifier' || property.key.name !== 'runtime') continue;
 			if (property.value.type !== 'Literal') return false;
-			return property.value.value === 'experimental-edge';
+			return property.value.value === 'edge';
 		}
 
 		return false;
