@@ -1,7 +1,6 @@
 import type { Commit, PushEvent } from '@octokit/webhooks-types';
-import { type AppName, AppNameValues, type PackageName, PackageNameValues } from '../utils/constants.js';
 import { getFinalTarget } from '../utils/functions.js';
-import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
+import { AppNames, PackageNames } from '../utils/webhooks.js';
 
 /**
  * Checks if a paths files were modified
@@ -23,20 +22,20 @@ function checkModified(prefix: string, commit: Commit) {
  * @param event - The event data
  * @returns The target name
  */
-export function getPushRewriteTarget(event: PushEvent): DiscordWebhooksTarget {
+export function getPushRewriteTarget(event: PushEvent): string {
 	// Workaround for pre-monorepo
 	if (event.ref === 'refs/heads/v13') return 'discord.js';
 
-	const targets = new Set<AppName | PackageName>();
+	const targets = new Set<string>();
 
 	for (const commit of event.commits) {
-		for (const name of AppNameValues) {
+		for (const name of AppNames) {
 			if (checkModified(`apps/${name}`, commit)) {
 				targets.add(name);
 			}
 		}
 
-		for (const name of PackageNameValues) {
+		for (const name of PackageNames) {
 			if (checkModified(`packages/${name}`, commit)) {
 				targets.add(name);
 			}

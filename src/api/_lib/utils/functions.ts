@@ -1,7 +1,6 @@
 import type { Endpoints } from '@octokit/types';
 import type { Label } from '@octokit/webhooks-types';
-import { AppName, AppNameValues, type PackageName, PackageNameValues } from './constants.js';
-import { type DiscordWebhooksTarget, OverrideWebhooks } from './webhooks.js';
+import { AppNames, PackageNames, OverrideWebhooks } from './webhooks.js';
 
 /**
  * `Array#includes` but it works for enums
@@ -37,7 +36,7 @@ export function strictArrayIncludes<StrictType extends Generic, Generic>(
  * @param target - The package / app name that is the initial target
  * @returns The determined final target
  */
-export function getFinalTarget(target: AppName | PackageName): DiscordWebhooksTarget {
+export function getFinalTarget(target: string): string {
 	// For some reason typescript doesn't get this
 	if (target in OverrideWebhooks) return OverrideWebhooks[target]!;
 	return target;
@@ -53,11 +52,9 @@ export function getPotentialTarget(potentialName: string) {
 	const parsedPotentialName = potentialName.trim().toLowerCase();
 
 	// "Documentation" is what appears on issues—not "Website".
-	const conformedPotentialName = parsedPotentialName === 'documentation' ? AppName.Website : parsedPotentialName;
+	const conformedPotentialName = parsedPotentialName === 'documentation' ? 'website' : parsedPotentialName;
 
-	const isTarget =
-		strictArrayIncludes(AppNameValues, conformedPotentialName) ||
-		strictArrayIncludes(PackageNameValues, conformedPotentialName);
+	const isTarget = AppNames.includes(conformedPotentialName) || PackageNames.includes(conformedPotentialName);
 
 	// Probably not often but if a package label is added that isn't accounted for it should just go to the monorepo webhook
 	// Same if user edits a package name manually in an issue description
@@ -94,15 +91,15 @@ export function getTargetFromFiles(
 		| Endpoints['GET /repos/{owner}/{repo}/pulls/{pull_number}/files']['response']['data'],
 ) {
 	if (!files) return 'monorepo';
-	let singleTarget: AppName | PackageName | null = null;
-	for (const name of AppNameValues) {
+	let singleTarget: string | null = null;
+	for (const name of AppNames) {
 		if (files.some((file) => file.filename.startsWith(`apps/${name}/`))) {
 			if (singleTarget) return 'monorepo';
 			singleTarget = name;
 		}
 	}
 
-	for (const name of PackageNameValues) {
+	for (const name of PackageNames) {
 		if (files.some((file) => file.filename.startsWith(`packages/${name}/`))) {
 			if (singleTarget) return 'monorepo';
 			singleTarget = name;
