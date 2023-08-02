@@ -19,8 +19,20 @@ const appIds = ids.apps ?? {};
 const packageIds = ids.packages ?? {};
 
 export const AppNames = Object.keys(appIds);
+if (overrideWebhooks?.apps) {
+	for (const overridenApp of Object.keys(overrideWebhooks.apps)) {
+		AppNames.push(overridenApp);
+	}
+}
+
 export const PackageNames = Object.keys(packageIds);
-export const OverrideWebhooks = overrideWebhooks ?? {};
+if (overrideWebhooks?.packages) {
+	for (const overridenPackage of Object.keys(overrideWebhooks.packages)) {
+		PackageNames.push(overridenPackage);
+	}
+}
+
+export const OverrideWebhooks = overrideWebhooks ? { ...overrideWebhooks.apps, ...overrideWebhooks.packages } : {};
 
 // If we don't cast then it only has the monorepo key
 const Webhooks = {

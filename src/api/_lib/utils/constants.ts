@@ -35,7 +35,10 @@ export interface EdgeConfig {
 		githubActions?: DiscardCommentTypes;
 		vercel?: DiscardCommentTypes;
 	};
-	overrideWebhooks?: Record<string, string>;
+	overrideWebhooks?: {
+		apps?: Record<string, string>;
+		packages?: Record<string, string>;
+	};
 }
 export interface DiscardCommentTypes {
 	commitComments?: boolean;
