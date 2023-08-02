@@ -34,7 +34,3 @@ const ForumWebhooks = Object.fromEntries(
 ) as typeof Webhooks;
 
 export const DiscordWebhooks = ForumWebhooks;
-
-// export const OverrideWebhooks: Partial<Record<AppName | PackageName, DiscordWebhooksTarget>> = {
-// 	'proxy-container': 'proxy',
-// };
