@@ -2,7 +2,6 @@ import { request } from '@octokit/request';
 import type { CommitCommentEvent } from '@octokit/webhooks-types';
 import { filterCommitComments } from '../utils/filters.js';
 import { getTargetFromFiles } from '../utils/functions.js';
-import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
  * Gets the target for incoming commit comment type webhooks
@@ -10,7 +9,7 @@ import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
  * @param event - The event data
  * @returns The target name
  */
-export async function getCommitCommentRewriteTarget(event: CommitCommentEvent): Promise<DiscordWebhooksTarget> {
+export async function getCommitCommentRewriteTarget(event: CommitCommentEvent): Promise<string> {
 	if (filterCommitComments(event)) return 'none';
 
 	const commitResponse = await request('GET /repos/{owner}/{repo}/commits/{ref}', {

@@ -1,4 +1,4 @@
-import process from 'node:process';
+import { get } from '@vercel/edge-config';
 
 export enum CheckedEvent {
 	CommitComment = 'commit_comment',
@@ -24,44 +24,35 @@ export enum FilterCheckedEvent {
 	PullRequestReviewThread = 'pull_request_review_thread',
 }
 
-export enum AppName {
-	Guide = 'guide',
-	Website = 'website',
+export interface EdgeConfig {
+	channelIds?: {
+		apps?: Record<string, string>;
+		monorepo?: string;
+		packages?: Record<string, string>;
+	};
+	discard?: {
+		codecov?: DiscardCommentTypes;
+		githubActions?: DiscardCommentTypes;
+		vercel?: DiscardCommentTypes;
+	};
+	overrideWebhooks?: {
+		apps?: Record<string, string>;
+		packages?: Record<string, string>;
+	};
+}
+export interface DiscardCommentTypes {
+	commitComments?: boolean;
+	prComments?: boolean;
 }
 
-export const AppNameValues = Object.values(AppName);
+const discard = await get<EdgeConfig['discard']>('discard');
 
-export enum PackageName {
-	Actions = 'actions',
-	ApiExtractorUtils = 'api-extractor-utils',
-	Brokers = 'brokers',
-	Builders = 'builders',
-	Collection = 'collection',
-	Core = 'core',
-	CreateDiscordBot = 'create-discord-bot',
-	DiscordJS = 'discord.js',
-	Docgen = 'docgen',
-	Formatters = 'formatters',
-	Next = 'next',
-	Proxy = 'proxy',
-	ProxyContainer = 'proxy-container',
-	Rest = 'rest',
-	Scripts = 'scripts',
-	Sharder = 'sharder',
-	Structures = 'structures',
-	Ui = 'ui',
-	Util = 'util',
-	Voice = 'voice',
-	Ws = 'ws',
-}
-
-export const PackageNameValues = Object.values(PackageName);
-
-export const DiscardVercelPrComments = process.env.DISCARD_VERCEL_PR_COMMENTS === 'true';
-export const DiscardVercelCommitComments = process.env.DISCARD_VERCEL_COMMIT_COMMENTS === 'true';
+export const DiscardVercelPrComments = discard?.vercel?.prComments === true;
+export const DiscardVercelCommitComments = discard?.vercel?.commitComments === true;
 export const VercelBotId = 35_613_825;
-export const DiscardCodecovComments = process.env.DISCARD_CODECOV_COMMENTS === 'true';
+export const DiscardCodecovPrComments = discard?.codecov?.prComments === true;
+export const DiscardCodecovCommitComments = discard?.codecov?.commitComments === true;
 export const CodecovBotId = 22_429_695;
-export const DiscardGithubActionsPrComments = process.env.DISCARD_GITHUB_ACTIONS_PR_COMMENTS === 'true';
-export const DiscardGithubActionsCommitComments = process.env.DISCARD_GITHUB_ACTIONS_COMMIT_COMMENTS === 'true';
+export const DiscardGithubActionsPrComments = discard?.githubActions?.prComments === true;
+export const DiscardGithubActionsCommitComments = discard?.githubActions?.commitComments === true;
 export const GithubActionsBotId = 41_898_282;

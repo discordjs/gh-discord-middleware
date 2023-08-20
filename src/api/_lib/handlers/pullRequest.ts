@@ -7,7 +7,6 @@ import type {
 } from '@octokit/webhooks-types';
 import { filterPrComments } from '../utils/filters.js';
 import { getLabelTarget, getTargetFromFiles } from '../utils/functions.js';
-import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
  * Gets the target for incoming pull request and subsidiary type webhooks
@@ -17,7 +16,7 @@ import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
  */
 export async function getPullRequestRewriteTarget(
 	event: PullRequestEvent | PullRequestReviewCommentEvent | PullRequestReviewEvent | PullRequestReviewThreadEvent,
-): Promise<DiscordWebhooksTarget> {
+): Promise<string> {
 	if (filterPrComments(event)) return 'none';
 
 	// Workaround for pre-monorepo

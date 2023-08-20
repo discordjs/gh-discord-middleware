@@ -1,36 +1,48 @@
 import process from 'node:process';
-import { AppName, PackageName } from './constants.js';
+import { getAll } from '@vercel/edge-config';
+import type { EdgeConfig } from './constants.js';
 
-const useForum = process.env.USE_FORUM === 'true';
-
-const webhookBase = useForum ? process.env.DISCORD_WEBHOOK_FORUM_BASE : '';
+const webhookBase = process.env.DISCORD_WEBHOOK_FORUM_BASE;
 
 if (typeof webhookBase !== 'string') {
-	throw new TypeError('DISCORD_WEBHOOK_FORUM_BASE must be defined to use forums');
+	throw new TypeError('DISCORD_WEBHOOK_FORUM_BASE must be defined');
 }
 
-// If we don't cast then we have to add all the package / app names here again!
-// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+// This is effectively a cast, the types of these variables is not actually guaranteed
+const { channelIds: ids, overrideWebhooks } = await getAll<EdgeConfig>(['channelIds', 'overrideWebhooks']);
+
+if (!ids?.monorepo) {
+	throw new TypeError('At least a monorepo id must be defined');
+}
+
+const appIds = ids.apps ?? {};
+const packageIds = ids.packages ?? {};
+
+export const AppNames = Object.keys(appIds);
+if (overrideWebhooks?.apps) {
+	for (const overridenApp of Object.keys(overrideWebhooks.apps)) {
+		AppNames.push(overridenApp);
+	}
+}
+
+export const PackageNames = Object.keys(packageIds);
+if (overrideWebhooks?.packages) {
+	for (const overridenPackage of Object.keys(overrideWebhooks.packages)) {
+		PackageNames.push(overridenPackage);
+	}
+}
+
+export const OverrideWebhooks = overrideWebhooks ? { ...overrideWebhooks.apps, ...overrideWebhooks.packages } : {};
+
+// If we don't cast then it only has the monorepo key
 const Webhooks = {
-	monorepo: process.env.DISCORD_WEBHOOK_MONOREPO,
-} as Record<'monorepo' | `${AppName | PackageName}`, string | undefined>;
-
-for (const packageName of Object.entries(PackageName)) {
-	Webhooks[packageName[1]] = process.env[`DISCORD_WEBHOOK_${packageName[0].toUpperCase()}`];
-}
-
-for (const appName of Object.entries(AppName)) {
-	Webhooks[appName[1]] = process.env[`DISCORD_WEBHOOK_${appName[0].toUpperCase()}`];
-}
+	monorepo: ids.monorepo,
+	...appIds,
+	...packageIds,
+} as { [target: string]: string; monorepo: string };
 
 const ForumWebhooks = Object.fromEntries(
 	Object.entries(Webhooks).map(([pack, val]) => [pack, val ? `${webhookBase}?thread_id=${val}` : undefined]),
 ) as typeof Webhooks;
 
-export const DiscordWebhooks = useForum ? ForumWebhooks : Webhooks;
-
-export type DiscordWebhooksTarget = keyof typeof DiscordWebhooks | 'none';
-
-export const OverrideWebhooks: Partial<Record<AppName | PackageName, DiscordWebhooksTarget>> = {
-	'proxy-container': 'proxy',
-};
+export const DiscordWebhooks = ForumWebhooks;

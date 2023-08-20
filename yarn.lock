@@ -1112,6 +1112,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vercel/edge-config-fs@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@vercel/edge-config-fs@npm:0.1.0"
+  checksum: 4eb27927a1c6a9d77cee4457424e208c3ff7f01e1cd0249b133804d12fd7099bd1aed6a9d9574b122d3bd59289b294a913b4df05bb69aca6091c8a020cbc2121
+  languageName: node
+  linkType: hard
+
+"@vercel/edge-config@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@vercel/edge-config@npm:0.2.1"
+  dependencies:
+    "@vercel/edge-config-fs": 0.1.0
+  checksum: 010e9ed02160798ce16ff698aa4b4daf43e296204f7d678f29cfca9e6857948cdb743a99627ed05f1295f8be395d8f8fc1ce7778a4384098b980f34cf60fb99c
+  languageName: node
+  linkType: hard
+
 "@vercel/error-utils@npm:1.0.10":
   version: 1.0.10
   resolution: "@vercel/error-utils@npm:1.0.10"
@@ -3627,6 +3643,7 @@ __metadata:
     "@octokit/webhooks-methods": ^4.0.0
     "@octokit/webhooks-types": ^7.1.0
     "@types/estree": ^1.0.1
+    "@vercel/edge-config": ^0.2.1
     "@vercel/nft": 0.23.0
     "@vercel/node": ^2.15.7
     acorn: ^8.10.0

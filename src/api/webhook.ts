@@ -24,13 +24,13 @@ import { getReleaseRewriteTarget } from './_lib/handlers/release.js';
 import { getTagOrBranchTarget } from './_lib/handlers/tagOrBranch.js';
 import { CheckedEvent } from './_lib/utils/constants.js';
 import { enumIncludes } from './_lib/utils/functions.js';
-import { type DiscordWebhooksTarget, DiscordWebhooks } from './_lib/utils/webhooks.js';
+import { DiscordWebhooks } from './_lib/utils/webhooks.js';
 
 function respondJSON(res: VercelResponse, status: number, message: string, data: unknown) {
 	res.status(status).json({ status, message, data });
 }
 
-async function rewrite(req: VercelRequest, res: VercelResponse, target: Exclude<DiscordWebhooksTarget, 'none'>) {
+async function rewrite(req: VercelRequest, res: VercelResponse, target: string) {
 	const originalBody = req.body as WebhookEvent;
 	let url = DiscordWebhooks[target];
 	if (!url && target !== 'monorepo') {
@@ -82,7 +82,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 	if (!eventName || !enumIncludes(CheckedEvent, eventName)) return rewrite(req, res, 'monorepo');
 
 	const eventData = req.body as WebhookEvent;
-	let target: DiscordWebhooksTarget;
+	let target: string;
 	try {
 		switch (eventName) {
 			case CheckedEvent.CommitComment:

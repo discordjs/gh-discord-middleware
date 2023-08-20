@@ -28,6 +28,7 @@
 		"@octokit/request-error": "^5.0.0",
 		"@octokit/types": "^11.1.0",
 		"@octokit/webhooks-methods": "^4.0.0",
+		"@vercel/edge-config": "^0.2.1",
 		"undici": "^5.22.1"
 	},
 	"devDependencies": {

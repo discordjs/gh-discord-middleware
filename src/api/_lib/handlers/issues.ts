@@ -1,7 +1,6 @@
 import type { IssueCommentEvent, IssuesEvent } from '@octokit/webhooks-types';
 import { filterPrComments } from '../utils/filters.js';
 import { getLabelTarget, getPotentialTarget } from '../utils/functions.js';
-import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
 
 /**
  * Gets the target for incoming issue type webhooks
@@ -9,7 +8,7 @@ import type { DiscordWebhooksTarget } from '../utils/webhooks.js';
  * @param event - The event data
  * @returns The target name
  */
-export function getIssueRewriteTarget(event: IssueCommentEvent | IssuesEvent): DiscordWebhooksTarget {
+export function getIssueRewriteTarget(event: IssueCommentEvent | IssuesEvent): string {
 	if (filterPrComments(event)) return 'none';
 
 	const label = getLabelTarget(event.issue.labels);
