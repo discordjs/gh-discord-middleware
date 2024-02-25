@@ -4,7 +4,7 @@
 		"outDir": "./dist",
 		"lib": ["ESNext", "DOM"],
 		"module": "ESNext",
-		"moduleResolution": "classic",
+		"moduleResolution": "Bundler",
 		"resolveJsonModule": false
 	},
 	"include": ["src/middleware.ts"]
