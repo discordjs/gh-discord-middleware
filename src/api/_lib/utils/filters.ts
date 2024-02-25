@@ -18,7 +18,7 @@ import {
 	GithubActionsBotId,
 	DiscardGithubActionsPrComments,
 	DiscardGithubActionsCommitComments,
-} from '../utils/constants.js';
+} from './constants.js';
 
 export function filterPrComments(
 	event:

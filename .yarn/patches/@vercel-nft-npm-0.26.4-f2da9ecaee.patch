@@ -1,21 +1,21 @@
 diff --git a/out/node-file-trace.d.ts b/out/node-file-trace.d.ts
-index 1ed524a5e040eaa072851211a5b72b6ba6f5a91d..76b5b3241b00bdf17e70aa2439ce99bd353cd311 100644
+index 2c0e97c5a6e4a5f549f0b6006fa5b7951e7dddaf..018ce2370bdea5ef787b99ced4727e9858fbab08 100644
 --- a/out/node-file-trace.d.ts
 +++ b/out/node-file-trace.d.ts
-@@ -26,7 +26,7 @@ export declare class Job {
+@@ -24,7 +24,7 @@ export declare class Job {
      warnings: Set<Error>;
      reasons: NodeFileTraceReasons;
-     private fileIOQueue;
+     private cachedFileSystem;
 -    constructor({ base, processCwd, exports, conditions, exportsOnly, paths, ignore, log, mixedModules, ts, analysis, cache, fileIOConcurrency, }: NodeFileTraceOptions);
 +    constructor({ base, processCwd, exports, conditions, exportsOnly, paths, ignore, log, mixedModules, ts, analysis, cache, web, fileIOConcurrency, }: NodeFileTraceOptions);
      readlink(path: string): Promise<string | null>;
      isFile(path: string): Promise<boolean>;
      isDir(path: string): Promise<boolean>;
 diff --git a/out/node-file-trace.js b/out/node-file-trace.js
-index bbc994957bb8cef2edeaf058116d2ebb23574db1..93bb2bff40350cdecee616e8733bbb3ccacc4f19 100644
+index c7c27f2e5d81e7c83de78b61a49271df95782226..c89676e623f25a2b113f65ce23f48bc87dc2fe40 100644
 --- a/out/node-file-trace.js
 +++ b/out/node-file-trace.js
-@@ -69,7 +69,7 @@ async function nodeFileTrace(files, opts = {}) {
+@@ -65,7 +65,7 @@ async function nodeFileTrace(files, opts = {}) {
  exports.nodeFileTrace = nodeFileTrace;
  ;
  class Job {
@@ -24,19 +24,11 @@ index bbc994957bb8cef2edeaf058116d2ebb23574db1..93bb2bff40350cdecee616e8733bbb3c
      // we use a default of 1024 concurrency to balance
      // performance and memory usage for fs operations
      fileIOConcurrency = 1024, }) {
-@@ -157,6 +157,7 @@ class Job {
-         this.paths = resolvedPaths;
-         this.log = log;
-         this.mixedModules = mixedModules;
-+        this.web = web;
-         this.fileIOQueue = new async_sema_1.Sema(fileIOConcurrency);
-         this.analysis = {};
-         if (analysis !== false) {
 diff --git a/out/resolve-dependency.js b/out/resolve-dependency.js
-index 113840bdeed0757d2f03aa5433470468b1ccdd2a..436be9da8d4a887342cb598076105ee16fd698fc 100644
+index ff945895481963eab26994cf103b22a9a5160567..13751d56bde7b9b52cb3b3b75134dff29ef36c61 100644
 --- a/out/resolve-dependency.js
 +++ b/out/resolve-dependency.js
-@@ -60,8 +60,9 @@ async function resolveDir(path, parent, job) {
+@@ -61,8 +61,9 @@ async function resolveDir(path, parent, job) {
      if (!await job.isDir(path))
          return;
      const pkgCfg = await getPkgCfg(path, job);
@@ -49,7 +41,7 @@ index 113840bdeed0757d2f03aa5433470468b1ccdd2a..436be9da8d4a887342cb598076105ee1
              await job.emitFile(path + path_1.sep + 'package.json', 'resolve', parent);
              return resolved;
 diff --git a/out/types.d.ts b/out/types.d.ts
-index 08d7e2f197b52a85187e4bc3c851d46d6763ac48..d63e7c1a4da44cd49f5349ab6df0f47bb067637b 100644
+index 6d230ebb6ef27fbb5e084e63d25eff48b260458f..c1178684bbb5c7b2b1739d6e6d7917cb7db0a996 100644
 --- a/out/types.d.ts
 +++ b/out/types.d.ts
 @@ -49,6 +49,7 @@ export interface NodeFileTraceOptions {
@@ -58,5 +50,5 @@ index 08d7e2f197b52a85187e4bc3c851d46d6763ac48..d63e7c1a4da44cd49f5349ab6df0f47b
      fileIOConcurrency?: number;
 +    web?: boolean;
  }
- export declare type NodeFileTraceReasonType = 'initial' | 'resolve' | 'dependency' | 'asset' | 'sharedlib';
+ export type NodeFileTraceReasonType = 'initial' | 'resolve' | 'dependency' | 'asset' | 'sharedlib';
  export interface NodeFileTraceReasons extends Map<string, {
