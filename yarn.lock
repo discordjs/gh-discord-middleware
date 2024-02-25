@@ -1265,9 +1265,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/edge-config@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@vercel/edge-config@npm:1.0.2"
+"@vercel/edge-config@npm:1.1.0-69327daa-20240224143842":
+  version: 1.1.0-69327daa-20240224143842
+  resolution: "@vercel/edge-config@npm:1.1.0-69327daa-20240224143842"
   dependencies:
     "@vercel/edge-config-fs": 0.1.0
     ts-essentials: 9.4.1
@@ -1276,7 +1276,7 @@ __metadata:
   peerDependenciesMeta:
     "@opentelemetry/api":
       optional: true
-  checksum: 97b1d9e8c01ee6d049b8aa27440b6c526b4838184dadeaf6e3e0db15d056f3a691928571ecce7d885347b2f63a6e3ae082b10a15038c8bd5010183df87efc351
+  checksum: 5f7e0945e51668396fc6a32a8e6c212f782ee8f530a07626658f705b15966a417af49dadc80fddebc60247743e194d14b6e55c36797ef1b0d0cc0537c44cd63f
   languageName: node
   linkType: hard
 
@@ -4316,7 +4316,7 @@ __metadata:
     "@octokit/webhooks-methods": ^5.0.0
     "@octokit/webhooks-types": ^7.3.2
     "@types/estree": ^1.0.5
-    "@vercel/edge-config": ^1.0.2
+    "@vercel/edge-config": 1.1.0-69327daa-20240224143842
     "@vercel/nft": 0.26.4
     "@vercel/node": ^3.0.20
     acorn: ^8.11.3
