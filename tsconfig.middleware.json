@@ -5,6 +5,7 @@
 		"lib": ["ESNext", "DOM"],
 		"module": "ESNext",
 		"moduleResolution": "Bundler",
+		"customConditions": ["browser", "web"],
 		"resolveJsonModule": false
 	},
 	"include": ["src/middleware.ts"]

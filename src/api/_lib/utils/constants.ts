@@ -30,6 +30,7 @@ export interface EdgeConfig {
 		monorepo?: string;
 		packages?: Record<string, string>;
 	};
+	debugLogs?: boolean;
 	discard?: {
 		codecov?: DiscardCommentTypes;
 		githubActions?: DiscardCommentTypes;
