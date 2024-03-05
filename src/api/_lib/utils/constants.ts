@@ -22,6 +22,9 @@ export enum FilterCheckedEvent {
 	PullRequestReview = 'pull_request_review',
 	PullRequestReviewComment = 'pull_request_review_comment',
 	PullRequestReviewThread = 'pull_request_review_thread',
+	Push = 'push',
+	TagOrBranchCreate = 'create',
+	TagOrBranchDelete = 'delete',
 }
 
 export interface EdgeConfig {
@@ -32,28 +35,31 @@ export interface EdgeConfig {
 	};
 	debugLogs?: boolean;
 	discard?: {
-		codecov?: DiscardCommentTypes;
-		githubActions?: DiscardCommentTypes;
-		vercel?: DiscardCommentTypes;
+		codecov?: DiscardTypes;
+		githubActions?: DiscardTypes;
+		renovate?: DiscardTypes;
+		vercel?: DiscardTypes;
 	};
 	overrideWebhooks?: {
 		apps?: Record<string, string>;
 		packages?: Record<string, string>;
 	};
 }
-export interface DiscardCommentTypes {
+export interface DiscardTypes {
 	commitComments?: boolean;
 	prComments?: boolean;
+	push?: boolean;
+	tagOrBranch?: boolean;
 }
 
-const discard = await get<EdgeConfig['discard']>('discard');
+export const discardConfig = await get<EdgeConfig['discard']>('discard');
+export const discardConfigEntries = discardConfig
+	? (Object.entries(discardConfig) as [keyof NonNullable<EdgeConfig['discard']>, Readonly<DiscardTypes>][])
+	: [];
 
-export const DiscardVercelPrComments = discard?.vercel?.prComments === true;
-export const DiscardVercelCommitComments = discard?.vercel?.commitComments === true;
-export const VercelBotId = 35_613_825;
-export const DiscardCodecovPrComments = discard?.codecov?.prComments === true;
-export const DiscardCodecovCommitComments = discard?.codecov?.commitComments === true;
-export const CodecovBotId = 22_429_695;
-export const DiscardGithubActionsPrComments = discard?.githubActions?.prComments === true;
-export const DiscardGithubActionsCommitComments = discard?.githubActions?.commitComments === true;
-export const GithubActionsBotId = 41_898_282;
+export const botIds: Record<keyof NonNullable<EdgeConfig['discard']>, number> = {
+	codecov: 22_429_695,
+	githubActions: 41_898_282,
+	renovate: 29_139_614,
+	vercel: 35_613_825,
+};
