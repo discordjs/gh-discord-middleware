@@ -1,4 +1,5 @@
 import type { Commit, PushEvent } from '@octokit/webhooks-types';
+import { filterPushes } from '../utils/filters.js';
 import { getFinalTarget } from '../utils/functions.js';
 import { AppNames, PackageNames } from '../utils/webhooks.js';
 
@@ -23,6 +24,7 @@ function checkModified(prefix: string, commit: Commit) {
  * @returns The target name
  */
 export function getPushRewriteTarget(event: PushEvent): string {
+	if (filterPushes(event)) return 'none';
 	// Workaround for pre-monorepo
 	if (event.ref === 'refs/heads/v13') return 'discord.js';
 

@@ -1,18 +1,21 @@
 import { STATUS_CODES } from 'node:http';
 import type {
 	CommitCommentEvent,
+	CreateEvent,
+	DeleteEvent,
 	IssueCommentEvent,
 	IssuesEvent,
 	PullRequestEvent,
 	PullRequestReviewCommentEvent,
 	PullRequestReviewEvent,
 	PullRequestReviewThreadEvent,
+	PushEvent,
 	WebhookEvent,
 } from '@octokit/webhooks-types';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { type Dispatcher, request } from 'undici';
 import { FilterCheckedEvent } from './_lib/utils/constants.js';
-import { filterCommitComments, filterPrComments } from './_lib/utils/filters.js';
+import { filterCommitComments, filterPrComments, filterPushes, filterTagOrBranches } from './_lib/utils/filters.js';
 import { enumIncludes } from './_lib/utils/functions.js';
 
 function respondJSON(res: VercelResponse, status: number, message: string, data: unknown) {
@@ -100,6 +103,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 							| PullRequestReviewThreadEvent,
 					)
 				) {
+					skip(res);
+					return;
+				}
+
+				break;
+			case FilterCheckedEvent.Push:
+				if (filterPushes(eventData as PushEvent)) {
+					skip(res);
+					return;
+				}
+
+				break;
+			case FilterCheckedEvent.TagOrBranchCreate:
+			case FilterCheckedEvent.TagOrBranchDelete:
+				if (filterTagOrBranches(eventData as CreateEvent | DeleteEvent)) {
 					skip(res);
 					return;
 				}
