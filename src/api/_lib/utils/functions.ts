@@ -72,11 +72,7 @@ export function getPotentialTarget(potentialName: string) {
 export function getLabelTarget(labels?: Label[]) {
 	if (!labels) return null;
 	const packageAppLabels = labels.filter(
-		(label) =>
-			label.name.startsWith('package:') ||
-			label.name.startsWith('app:') ||
-			label.name.startsWith('packages:') ||
-			label.name.startsWith('apps:'),
+		(label) => label.name.startsWith('packages:') || label.name.startsWith('apps:'),
 	);
 	if (packageAppLabels.length < 1) return null;
 	if (packageAppLabels.length > 1) return 'monorepo';
