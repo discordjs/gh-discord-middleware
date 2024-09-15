@@ -1,6 +1,18 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ]
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["config:recommended", ":semanticCommitTypeAll(chore)", ":maintainLockFilesMonthly"],
+	"semanticCommits": "enabled",
+	"packageRules": [
+		{
+			"matchUpdateTypes": ["patch", "minor"],
+			"matchCurrentVersion": "!/^0/",
+			"groupName": "patch/minor dependencies",
+			"groupSlug": "all-non-major"
+		},
+		{
+			"matchPackageNames": ["@vercel/nft"],
+			"schedule": ["every 3 months on the first day of the month"]
+		}
+	],
+	"schedule": ["every 2 weeks on friday"]
 }
