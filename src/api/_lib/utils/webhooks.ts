@@ -1,4 +1,3 @@
-import process from 'node:process';
 import { getAll } from '@vercel/edge-config';
 import type { EdgeConfig } from './constants.js';
 

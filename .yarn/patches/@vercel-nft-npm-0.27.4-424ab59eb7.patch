@@ -1,42 +1,52 @@
 diff --git a/out/node-file-trace.d.ts b/out/node-file-trace.d.ts
-index 2c0e97c5a6e4a5f549f0b6006fa5b7951e7dddaf..018ce2370bdea5ef787b99ced4727e9858fbab08 100644
+index ff8168c5c564f3ea23f302bebc9d2ab199b2436b..15b4297912addd3656224fd52602330efa396bec 100644
 --- a/out/node-file-trace.d.ts
 +++ b/out/node-file-trace.d.ts
-@@ -24,7 +24,7 @@ export declare class Job {
-     warnings: Set<Error>;
+@@ -25,7 +25,7 @@ export declare class Job {
      reasons: NodeFileTraceReasons;
      private cachedFileSystem;
+     private remappings;
 -    constructor({ base, processCwd, exports, conditions, exportsOnly, paths, ignore, log, mixedModules, ts, analysis, cache, fileIOConcurrency, }: NodeFileTraceOptions);
 +    constructor({ base, processCwd, exports, conditions, exportsOnly, paths, ignore, log, mixedModules, ts, analysis, cache, web, fileIOConcurrency, }: NodeFileTraceOptions);
+     addRemapping(path: string, dep: string): void;
      readlink(path: string): Promise<string | null>;
      isFile(path: string): Promise<boolean>;
-     isDir(path: string): Promise<boolean>;
 diff --git a/out/node-file-trace.js b/out/node-file-trace.js
-index c7c27f2e5d81e7c83de78b61a49271df95782226..c89676e623f25a2b113f65ce23f48bc87dc2fe40 100644
+index cd4a4fddf957a54e118cb8e87516d1f69def5d6f..a80950b29655efd58a6ff759473b213195412254 100644
 --- a/out/node-file-trace.js
 +++ b/out/node-file-trace.js
-@@ -65,7 +65,7 @@ async function nodeFileTrace(files, opts = {}) {
+@@ -63,7 +63,7 @@ async function nodeFileTrace(files, opts = {}) {
+ }
  exports.nodeFileTrace = nodeFileTrace;
- ;
  class Job {
 -    constructor({ base = process.cwd(), processCwd, exports, conditions = exports || ['node'], exportsOnly = false, paths = {}, ignore, log = false, mixedModules = false, ts = true, analysis = {}, cache, 
 +    constructor({ base = process.cwd(), processCwd, exports, conditions = exports || ['node'], exportsOnly = false, paths = {}, ignore, log = false, mixedModules = false, ts = true, analysis = {}, cache, web = false,
      // we use a default of 1024 concurrency to balance
      // performance and memory usage for fs operations
      fileIOConcurrency = 1024, }) {
+@@ -152,6 +152,7 @@ class Job {
+         this.paths = resolvedPaths;
+         this.log = log;
+         this.mixedModules = mixedModules;
++        this.web = web;
+         this.cachedFileSystem = new fs_1.CachedFileSystem({ cache, fileIOConcurrency });
+         this.analysis = {};
+         if (analysis !== false) {
 diff --git a/out/resolve-dependency.js b/out/resolve-dependency.js
-index ff945895481963eab26994cf103b22a9a5160567..13751d56bde7b9b52cb3b3b75134dff29ef36c61 100644
+index e25c0c6e56514d95a9339dcedadfd97344f4a167..3e97cd6b2a6cb1786508bd88a5435cceedd4172e 100644
 --- a/out/resolve-dependency.js
 +++ b/out/resolve-dependency.js
-@@ -61,8 +61,9 @@ async function resolveDir(path, parent, job) {
-     if (!await job.isDir(path))
+@@ -71,9 +71,10 @@ async function resolveDir(path, parent, job) {
+     if (!(await job.isDir(path)))
          return;
      const pkgCfg = await getPkgCfg(path, job);
 -    if (pkgCfg && typeof pkgCfg.main === 'string') {
--        const resolved = await resolveFile((0, path_1.resolve)(path, pkgCfg.main), parent, job) || await resolveFile((0, path_1.resolve)(path, pkgCfg.main, 'index'), parent, job);
+-        const resolved = (await resolveFile((0, path_1.resolve)(path, pkgCfg.main), parent, job)) ||
+-            (await resolveFile((0, path_1.resolve)(path, pkgCfg.main, 'index'), parent, job));
 +    if (pkgCfg && ((job.web && (typeof pkgCfg.browser === 'string' || typeof pkgCfg.module === 'string')) || typeof pkgCfg.main === 'string')) {
-+        const fieldValue = job.web ? (typeof pkgCfg.browser === 'string' ? pkgCfg.browser : pkgCfg.module || pkgCfg.main) : pkgCfg.main;
-+        const resolved = await resolveFile((0, path_1.resolve)(path, fieldValue), parent, job) || await resolveFile((0, path_1.resolve)(path, fieldValue, 'index'), parent, job);
++        const fieldValue = job.web ? (typeof pkgCfg.browser === 'string' ? pkgCfg.browser : pkgCfg.web): pkgCfg.main;
++        const resolved = (await resolveFile((0, path_1.resolve)(path, fieldValue), parent, job)) ||
++            (await resolveFile((0, path_1.resolve)(path, fieldValue, 'index'), parent, job));
          if (resolved) {
              await job.emitFile(path + path_1.sep + 'package.json', 'resolve', parent);
              return resolved;

@@ -1,6 +1,5 @@
 import { copyFile, mkdir, readFile, writeFile, readdir, stat } from 'node:fs/promises';
 import { dirname, basename, relative, join as pathJoin, sep as pathSep } from 'node:path';
-import process from 'node:process';
 import { nodeFileTrace } from '@vercel/nft';
 import * as acorn from 'acorn';
 import type { Program } from 'estree';
