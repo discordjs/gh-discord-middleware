@@ -28,7 +28,7 @@
 		"@octokit/request-error": "^6.1.4",
 		"@octokit/types": "^13.5.0",
 		"@octokit/webhooks-methods": "^5.1.0",
-		"@vercel/edge-config": "1.2.1",
+		"@vercel/edge-config": "1.3.0",
 		"undici": "^6.19.8"
 	},
 	"devDependencies": {
@@ -37,13 +37,13 @@
 		"@vercel/nft": "patch:@vercel/nft@npm%3A0.27.4#~/.yarn/patches/@vercel-nft-npm-0.27.4-424ab59eb7.patch",
 		"@vercel/node": "^3.2.14",
 		"acorn": "^8.12.1",
-		"eslint": "9.10.0",
+		"eslint": "9.12.0",
 		"eslint-config-neon": "^0.2.0",
 		"eslint-formatter-pretty": "^6.0.1",
 		"lodash.merge": "^4.6.2",
 		"prettier": "^3.3.3",
 		"rimraf": "^6.0.1",
-		"typescript": "5.6.2",
+		"typescript": "5.6.3",
 		"typescript-eslint": "^8.5.0",
 		"vercel": "^37.4.2"
 	},
