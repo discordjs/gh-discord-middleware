@@ -12,7 +12,7 @@ index ff8168c5c564f3ea23f302bebc9d2ab199b2436b..15b4297912addd3656224fd52602330e
      readlink(path: string): Promise<string | null>;
      isFile(path: string): Promise<boolean>;
 diff --git a/out/node-file-trace.js b/out/node-file-trace.js
-index cd4a4fddf957a54e118cb8e87516d1f69def5d6f..a80950b29655efd58a6ff759473b213195412254 100644
+index a2ae5f6f7ac0efebf6f35483902d38fd456b9a4b..de4f00b9c85484a91f556846f167f5256e4a3efe 100644
 --- a/out/node-file-trace.js
 +++ b/out/node-file-trace.js
 @@ -63,7 +63,7 @@ async function nodeFileTrace(files, opts = {}) {
