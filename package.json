@@ -47,7 +47,7 @@
 		"typescript-eslint": "^8.27.0",
 		"vercel": "^41.4.1"
 	},
-	"packageManager": "yarn@4.6.0",
+	"packageManager": "yarn@4.7.0",
 	"resolutions": {
 		"@vercel/nft@npm:0.27.3": "patch:@vercel/nft@npm%3A0.27.10#~/.yarn/patches/@vercel-nft-npm-0.27.10-0a569de484.patch"
 	}
