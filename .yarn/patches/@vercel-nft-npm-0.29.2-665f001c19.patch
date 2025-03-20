@@ -1,8 +1,8 @@
 diff --git a/out/node-file-trace.d.ts b/out/node-file-trace.d.ts
-index ff8168c5c564f3ea23f302bebc9d2ab199b2436b..15b4297912addd3656224fd52602330efa396bec 100644
+index 961dd0391a4124de23eba4539fe6f254b866cf27..3424f5387c55442dc796528ab2730c27945c11cf 100644
 --- a/out/node-file-trace.d.ts
 +++ b/out/node-file-trace.d.ts
-@@ -25,7 +25,7 @@ export declare class Job {
+@@ -23,7 +23,7 @@ export declare class Job {
      reasons: NodeFileTraceReasons;
      private cachedFileSystem;
      private remappings;
@@ -12,19 +12,19 @@ index ff8168c5c564f3ea23f302bebc9d2ab199b2436b..15b4297912addd3656224fd52602330e
      readlink(path: string): Promise<string | null>;
      isFile(path: string): Promise<boolean>;
 diff --git a/out/node-file-trace.js b/out/node-file-trace.js
-index a2ae5f6f7ac0efebf6f35483902d38fd456b9a4b..de4f00b9c85484a91f556846f167f5256e4a3efe 100644
+index 2ca08aa0bbcef87d67c87ef6b462dbd1079ad76b..2ad9cbd391f612242507a0908b58e5936bbd5bbc 100644
 --- a/out/node-file-trace.js
 +++ b/out/node-file-trace.js
-@@ -63,7 +63,7 @@ async function nodeFileTrace(files, opts = {}) {
- }
- exports.nodeFileTrace = nodeFileTrace;
- class Job {
+@@ -91,7 +91,7 @@ class Job {
+     reasons = new Map();
+     cachedFileSystem;
+     remappings = new Map();
 -    constructor({ base = process.cwd(), processCwd, exports, conditions = exports || ['node'], exportsOnly = false, paths = {}, ignore, log = false, mixedModules = false, ts = true, analysis = {}, cache, 
 +    constructor({ base = process.cwd(), processCwd, exports, conditions = exports || ['node'], exportsOnly = false, paths = {}, ignore, log = false, mixedModules = false, ts = true, analysis = {}, cache, web = false,
      // we use a default of 1024 concurrency to balance
      // performance and memory usage for fs operations
      fileIOConcurrency = 1024, }) {
-@@ -152,6 +152,7 @@ class Job {
+@@ -137,6 +137,7 @@ class Job {
          this.paths = resolvedPaths;
          this.log = log;
          this.mixedModules = mixedModules;
@@ -33,7 +33,7 @@ index a2ae5f6f7ac0efebf6f35483902d38fd456b9a4b..de4f00b9c85484a91f556846f167f525
          this.analysis = {};
          if (analysis !== false) {
 diff --git a/out/resolve-dependency.js b/out/resolve-dependency.js
-index e25c0c6e56514d95a9339dcedadfd97344f4a167..3e97cd6b2a6cb1786508bd88a5435cceedd4172e 100644
+index 23875e30dd78967b28607e1f63c158876aee343c..5bf46ac097becc774d94848f76429faa27ba7b4f 100644
 --- a/out/resolve-dependency.js
 +++ b/out/resolve-dependency.js
 @@ -71,9 +71,10 @@ async function resolveDir(path, parent, job) {
@@ -51,10 +51,10 @@ index e25c0c6e56514d95a9339dcedadfd97344f4a167..3e97cd6b2a6cb1786508bd88a5435cce
              await job.emitFile(path + path_1.sep + 'package.json', 'resolve', parent);
              return resolved;
 diff --git a/out/types.d.ts b/out/types.d.ts
-index 6d230ebb6ef27fbb5e084e63d25eff48b260458f..c1178684bbb5c7b2b1739d6e6d7917cb7db0a996 100644
+index b8b2f2d26af6a47af535d10c0e93d4cc46084a9a..1ca95e4e8edc7c06aab55025fd9abc9375250b49 100644
 --- a/out/types.d.ts
 +++ b/out/types.d.ts
-@@ -49,6 +49,7 @@ export interface NodeFileTraceOptions {
+@@ -48,6 +48,7 @@ export interface NodeFileTraceOptions {
      readlink?: (path: string) => Promise<string | null>;
      resolve?: (id: string, parent: string, job: Job, cjsResolve: boolean) => Promise<string | string[]>;
      fileIOConcurrency?: number;
