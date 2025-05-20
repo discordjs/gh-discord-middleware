@@ -24,10 +24,10 @@
 		"url": "https://github.com/ckohen/gh-discord-middleware/issues"
 	},
 	"dependencies": {
-		"@octokit/request": "^9.2.2",
-		"@octokit/request-error": "^6.1.7",
-		"@octokit/types": "^13.10.0",
-		"@octokit/webhooks-methods": "^5.1.1",
+		"@octokit/request": "^10.0.0",
+		"@octokit/request-error": "^7.0.0",
+		"@octokit/types": "^14.0.0",
+		"@octokit/webhooks-methods": "^6.0.0",
 		"@vercel/edge-config": "1.4.0",
 		"undici": "^7.5.0"
 	},
