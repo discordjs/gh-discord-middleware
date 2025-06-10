@@ -4027,7 +4027,6 @@ __metadata:
     rimraf: "npm:^6.0.1"
     typescript: "npm:5.8.3"
     typescript-eslint: "npm:^8.34.0"
-    undici: "npm:^7.10.0"
     vercel: "npm:^42.3.0"
   languageName: unknown
   linkType: soft
@@ -7613,13 +7612,6 @@ __metadata:
   dependencies:
     "@fastify/busboy": "npm:^2.0.0"
   checksum: 10/a666a9f5ac4270c659fafc33d78b6b5039a0adbae3e28f934774c85dcc66ea91da907896f12b414bd6f578508b44d5dc206fa636afa0e49a4e1c9e99831ff065
-  languageName: node
-  linkType: hard
-
-"undici@npm:^7.10.0":
-  version: 7.10.0
-  resolution: "undici@npm:7.10.0"
-  checksum: 10/41d8ccd5b5e35bcd9035a5a640d9020f9ea1a2ef3dffb3e29518ff16ca01957833f1befe141b3a58db09015174681614732f9d322b0bc7f78855f51020bd744e
   languageName: node
   linkType: hard
 
