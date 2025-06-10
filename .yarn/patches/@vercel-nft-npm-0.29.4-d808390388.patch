@@ -12,7 +12,7 @@ index 961dd0391a4124de23eba4539fe6f254b866cf27..3424f5387c55442dc796528ab2730c27
      readlink(path: string): Promise<string | null>;
      isFile(path: string): Promise<boolean>;
 diff --git a/out/node-file-trace.js b/out/node-file-trace.js
-index 2ca08aa0bbcef87d67c87ef6b462dbd1079ad76b..2ad9cbd391f612242507a0908b58e5936bbd5bbc 100644
+index 2ca08aa0bbcef87d67c87ef6b462dbd1079ad76b..5b3d839922577c91a5d999d5268140857a4b4357 100644
 --- a/out/node-file-trace.js
 +++ b/out/node-file-trace.js
 @@ -91,7 +91,7 @@ class Job {
@@ -20,7 +20,7 @@ index 2ca08aa0bbcef87d67c87ef6b462dbd1079ad76b..2ad9cbd391f612242507a0908b58e593
      cachedFileSystem;
      remappings = new Map();
 -    constructor({ base = process.cwd(), processCwd, exports, conditions = exports || ['node'], exportsOnly = false, paths = {}, ignore, log = false, mixedModules = false, ts = true, analysis = {}, cache, 
-+    constructor({ base = process.cwd(), processCwd, exports, conditions = exports || ['node'], exportsOnly = false, paths = {}, ignore, log = false, mixedModules = false, ts = true, analysis = {}, cache, web = false,
++    constructor({ base = process.cwd(), processCwd, exports, conditions = exports || ['node'], exportsOnly = false, paths = {}, ignore, log = false, mixedModules = false, ts = true, analysis = {}, cache, web = false, 
      // we use a default of 1024 concurrency to balance
      // performance and memory usage for fs operations
      fileIOConcurrency = 1024, }) {
@@ -33,7 +33,7 @@ index 2ca08aa0bbcef87d67c87ef6b462dbd1079ad76b..2ad9cbd391f612242507a0908b58e593
          this.analysis = {};
          if (analysis !== false) {
 diff --git a/out/resolve-dependency.js b/out/resolve-dependency.js
-index 23875e30dd78967b28607e1f63c158876aee343c..5bf46ac097becc774d94848f76429faa27ba7b4f 100644
+index 23875e30dd78967b28607e1f63c158876aee343c..4e85fd4e0ce73a797a4358c971f8a87a2f898a11 100644
 --- a/out/resolve-dependency.js
 +++ b/out/resolve-dependency.js
 @@ -71,9 +71,10 @@ async function resolveDir(path, parent, job) {
@@ -43,7 +43,7 @@ index 23875e30dd78967b28607e1f63c158876aee343c..5bf46ac097becc774d94848f76429faa
 -    if (pkgCfg && typeof pkgCfg.main === 'string') {
 -        const resolved = (await resolveFile((0, path_1.resolve)(path, pkgCfg.main), parent, job)) ||
 -            (await resolveFile((0, path_1.resolve)(path, pkgCfg.main, 'index'), parent, job));
-+    if (pkgCfg && ((job.web && (typeof pkgCfg.browser === 'string' || typeof pkgCfg.module === 'string')) || typeof pkgCfg.main === 'string')) {
++ if (pkgCfg && ((job.web && (typeof pkgCfg.browser === 'string' || typeof pkgCfg.module === 'string')) || typeof pkgCfg.main === 'string')) {
 +        const fieldValue = job.web ? (typeof pkgCfg.browser === 'string' ? pkgCfg.browser : pkgCfg.web): pkgCfg.main;
 +        const resolved = (await resolveFile((0, path_1.resolve)(path, fieldValue), parent, job)) ||
 +            (await resolveFile((0, path_1.resolve)(path, fieldValue, 'index'), parent, job));
