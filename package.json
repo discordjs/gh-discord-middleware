@@ -45,7 +45,7 @@
 		"rimraf": "^6.0.1",
 		"typescript": "5.8.3",
 		"typescript-eslint": "^8.36.0",
-		"vercel": "^44.4.0"
+		"vercel": "^45.0.0"
 	},
 	"packageManager": "yarn@4.9.2"
 }
