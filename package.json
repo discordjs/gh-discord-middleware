@@ -26,7 +26,7 @@
 	"dependencies": {
 		"@octokit/request": "^10.0.3",
 		"@octokit/request-error": "^7.0.0",
-		"@octokit/types": "^14.1.0",
+		"@octokit/types": "^15.0.0",
 		"@octokit/webhooks-methods": "^6.0.0",
 		"@vercel/edge-config": "1.4.0",
 		"undici": "^7.11.0"
