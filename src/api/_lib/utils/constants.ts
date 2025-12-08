@@ -36,6 +36,8 @@ export interface EdgeConfig {
 	debugLogs?: boolean;
 	discard?: {
 		codecov?: DiscardTypes;
+		codeRabbitAI: DiscardTypes;
+		copilot?: DiscardTypes;
 		githubActions?: DiscardTypes;
 		renovate?: DiscardTypes;
 		vercel?: DiscardTypes;
@@ -59,6 +61,8 @@ export const discardConfigEntries = discardConfig
 
 export const botIds: Record<keyof NonNullable<EdgeConfig['discard']>, number> = {
 	codecov: 22_429_695,
+	codeRabbitAI: 136_622_811,
+	copilot: 175_728_472,
 	githubActions: 41_898_282,
 	renovate: 29_139_614,
 	vercel: 35_613_825,
