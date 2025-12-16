@@ -24,28 +24,31 @@
 		"url": "https://github.com/ckohen/gh-discord-middleware/issues"
 	},
 	"dependencies": {
-		"@octokit/request": "^10.0.5",
-		"@octokit/request-error": "^7.0.1",
-		"@octokit/types": "^15.0.0",
+		"@octokit/request": "^10.0.7",
+		"@octokit/request-error": "^7.1.0",
+		"@octokit/types": "^16.0.0",
 		"@octokit/webhooks-methods": "^6.0.0",
-		"@vercel/edge-config": "1.4.0",
+		"@vercel/edge-config": "1.4.3",
 		"undici": "^7.16.0"
 	},
 	"devDependencies": {
 		"@octokit/webhooks-types": "^7.6.1",
 		"@types/estree": "^1.0.8",
-		"@vercel/nft": "patch:@vercel/nft@npm%3A0.30.2#~/.yarn/patches/@vercel-nft-npm-0.30.2-35732c16fd.patch",
-		"@vercel/node": "^5.3.26",
+		"@vercel/nft": "patch:@vercel/nft@npm%3A1.1.1#~/.yarn/patches/@vercel-nft-npm-1.1.1-9d377dc0ad.patch",
+		"@vercel/node": "^5.5.15",
 		"acorn": "^8.15.0",
-		"eslint": "9.37.0",
-		"eslint-config-neon": "^0.2.7",
+		"eslint": "9.39.2",
+		"eslint-config-neon": "^0.2.9",
 		"eslint-formatter-pretty": "^7.0.0",
 		"lodash.merge": "^4.6.2",
-		"prettier": "^3.6.2",
-		"rimraf": "^6.0.1",
+		"prettier": "^3.7.4",
+		"rimraf": "^6.1.2",
 		"typescript": "5.9.3",
-		"typescript-eslint": "^8.46.0",
-		"vercel": "^48.2.9"
+		"typescript-eslint": "^8.50.0",
+		"vercel": "^50.1.0"
 	},
-	"packageManager": "yarn@4.10.3"
+	"packageManager": "yarn@4.12.0",
+	"resolutions": {
+		"@vercel/nft@npm:1.1.1": "patch:@vercel/nft@npm%3A1.1.1#~/.yarn/patches/@vercel-nft-npm-1.1.1-9d377dc0ad.patch"
+	}
 }
