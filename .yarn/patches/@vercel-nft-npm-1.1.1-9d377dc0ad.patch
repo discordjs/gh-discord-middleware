@@ -33,7 +33,7 @@ index 2ca08aa0bbcef87d67c87ef6b462dbd1079ad76b..2ad9cbd391f612242507a0908b58e593
          this.analysis = {};
          if (analysis !== false) {
 diff --git a/out/resolve-dependency.js b/out/resolve-dependency.js
-index 1fb9ee9d388e20de7283520d61ac86fa259ac2b6..6647a929629e4130c161b38edbc564e0e0ebf4a4 100644
+index fc0b8a296c1428653326f9f7f74f4b4f3346a5b5..6dd28e3b3f4913f7a619bfaf863baea5456cd134 100644
 --- a/out/resolve-dependency.js
 +++ b/out/resolve-dependency.js
 @@ -72,9 +72,10 @@ async function resolveDir(path, parent, job) {
