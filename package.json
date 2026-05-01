@@ -37,7 +37,7 @@
 		"@vercel/nft": "patch:@vercel/nft@npm%3A1.1.1#~/.yarn/patches/@vercel-nft-npm-1.1.1-9d377dc0ad.patch",
 		"@vercel/node": "^5.5.15",
 		"acorn": "^8.15.0",
-		"eslint": "9.39.3",
+		"eslint": "10.3.0",
 		"eslint-config-neon": "^0.2.9",
 		"eslint-formatter-pretty": "^7.0.0",
 		"lodash.merge": "^4.6.2",
