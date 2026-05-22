@@ -35,8 +35,8 @@ export interface EdgeConfig {
 	};
 	debugLogs?: boolean;
 	discard?: {
-		codecov?: DiscardTypes;
 		codeRabbitAI: DiscardTypes;
+		codecov?: DiscardTypes;
 		copilot?: DiscardTypes;
 		githubActions?: DiscardTypes;
 		renovate?: DiscardTypes;

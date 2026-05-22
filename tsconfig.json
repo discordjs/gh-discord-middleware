@@ -38,7 +38,8 @@
 		"experimentalDecorators": true,
 		"lib": ["ESNext"],
 		"target": "ESNext",
-		"useDefineForClassFields": true
+		"useDefineForClassFields": true,
+		"types": ["node"]
 	},
 	"include": ["src/api/**/*.ts", "src/build/**/*.ts"]
 }

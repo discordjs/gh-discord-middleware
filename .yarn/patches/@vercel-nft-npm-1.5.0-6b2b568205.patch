@@ -1,32 +1,32 @@
 diff --git a/out/node-file-trace.d.ts b/out/node-file-trace.d.ts
-index 961dd0391a4124de23eba4539fe6f254b866cf27..3424f5387c55442dc796528ab2730c27945c11cf 100644
+index a922f41adbaa4d4c2829cdda206414eeb34b345f..7882694c147b8fb9bea4571e6d02a71d3d789f36 100644
 --- a/out/node-file-trace.d.ts
 +++ b/out/node-file-trace.d.ts
-@@ -23,7 +23,7 @@ export declare class Job {
+@@ -24,7 +24,7 @@ export declare class Job {
      reasons: NodeFileTraceReasons;
      private cachedFileSystem;
      private remappings;
--    constructor({ base, processCwd, exports, conditions, exportsOnly, paths, ignore, log, mixedModules, ts, analysis, cache, fileIOConcurrency, }: NodeFileTraceOptions);
-+    constructor({ base, processCwd, exports, conditions, exportsOnly, paths, ignore, log, mixedModules, ts, analysis, cache, web, fileIOConcurrency, }: NodeFileTraceOptions);
+-    constructor({ base, processCwd, exports, conditions, exportsOnly, paths, ignore, log, mixedModules, ts, analysis, cache, fileIOConcurrency, depth, }: NodeFileTraceOptions);
++    constructor({ base, processCwd, exports, conditions, exportsOnly, paths, ignore, log, mixedModules, ts, analysis, cache, fileIOConcurrency, depth, web, }: NodeFileTraceOptions);
      addRemapping(path: string, dep: string): void;
      readlink(path: string): Promise<string | null>;
      isFile(path: string): Promise<boolean>;
 diff --git a/out/node-file-trace.js b/out/node-file-trace.js
-index 2ca08aa0bbcef87d67c87ef6b462dbd1079ad76b..2ad9cbd391f612242507a0908b58e5936bbd5bbc 100644
+index ab58862c98f3f024d74668495b00a98a95f76f03..0cf470015d63ede233cd408586830eaff1675718 100644
 --- a/out/node-file-trace.js
 +++ b/out/node-file-trace.js
-@@ -91,7 +91,7 @@ class Job {
+@@ -92,7 +92,7 @@ class Job {
      reasons = new Map();
      cachedFileSystem;
      remappings = new Map();
 -    constructor({ base = process.cwd(), processCwd, exports, conditions = exports || ['node'], exportsOnly = false, paths = {}, ignore, log = false, mixedModules = false, ts = true, analysis = {}, cache, 
-+    constructor({ base = process.cwd(), processCwd, exports, conditions = exports || ['node'], exportsOnly = false, paths = {}, ignore, log = false, mixedModules = false, ts = true, analysis = {}, cache, web = false,
++    constructor({ base = process.cwd(), processCwd, exports, conditions = exports || ['node'], exportsOnly = false, paths = {}, ignore, log = false, mixedModules = false, ts = true, analysis = {}, cache, web = false, 
      // we use a default of 1024 concurrency to balance
      // performance and memory usage for fs operations
-     fileIOConcurrency = 1024, }) {
-@@ -137,6 +137,7 @@ class Job {
-         this.paths = resolvedPaths;
+     fileIOConcurrency = 1024, depth = Infinity, }) {
+@@ -139,6 +139,7 @@ class Job {
          this.log = log;
+         this.depth = depth;
          this.mixedModules = mixedModules;
 +        this.web = web;
          this.cachedFileSystem = new fs_1.CachedFileSystem({ cache, fileIOConcurrency });
@@ -51,13 +51,13 @@ index fc0b8a296c1428653326f9f7f74f4b4f3346a5b5..6dd28e3b3f4913f7a619bfaf863baea5
              await job.emitFile(path + path_1.sep + 'package.json', 'resolve', parent);
              return resolved;
 diff --git a/out/types.d.ts b/out/types.d.ts
-index b8b2f2d26af6a47af535d10c0e93d4cc46084a9a..1ca95e4e8edc7c06aab55025fd9abc9375250b49 100644
+index 819c25a6bb5475162fc0069eb35d62fb0519f79b..4e37e4912d4c0ab80262a8e9e3edcefd5093e9fa 100644
 --- a/out/types.d.ts
 +++ b/out/types.d.ts
-@@ -48,6 +48,7 @@ export interface NodeFileTraceOptions {
-     readlink?: (path: string) => Promise<string | null>;
+@@ -49,6 +49,7 @@ export interface NodeFileTraceOptions {
      resolve?: (id: string, parent: string, job: Job, cjsResolve: boolean) => Promise<string | string[]>;
      fileIOConcurrency?: number;
+     depth?: number;
 +    web?: boolean;
  }
  export type NodeFileTraceReasonType = 'initial' | 'resolve' | 'dependency' | 'asset' | 'sharedlib';
