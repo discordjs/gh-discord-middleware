@@ -49,7 +49,6 @@
 	},
 	"packageManager": "yarn@4.12.0",
 	"resolutions": {
-		"@vercel/nft@npm:1.1.1": "patch:@vercel/nft@npm%3A1.1.1#~/.yarn/patches/@vercel-nft-npm-1.1.1-9d377dc0ad.patch",
 		"@vercel/nft@npm:1.5.0": "patch:@vercel/nft@npm%3A1.5.0#~/.yarn/patches/@vercel-nft-npm-1.5.0-6b2b568205.patch"
 	}
 }
