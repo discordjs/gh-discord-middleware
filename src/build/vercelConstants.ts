@@ -31,4 +31,4 @@ export const FunctionDirectoryExtension = '.func';
  */
 export const FunctionConfigFileName = '.vc-config.json';
 
-export const NodeJSVersion = 'nodejs20.x';
+export const NodeJSVersion = 'nodejs24.x';

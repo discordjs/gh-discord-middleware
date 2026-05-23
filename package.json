@@ -48,9 +48,6 @@
 		"vercel": "^54.3.0"
 	},
 	"packageManager": "yarn@4.15.0",
-	"engines": {
-		"node": "24.x"
-	},
 	"resolutions": {
 		"@vercel/nft@npm:1.5.0": "patch:@vercel/nft@npm%3A1.5.0#~/.yarn/patches/@vercel-nft-npm-1.5.0-6b2b568205.patch"
 	}
