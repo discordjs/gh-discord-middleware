@@ -38,7 +38,7 @@
 		"@vercel/node": "^5.8.3",
 		"acorn": "^8.16.0",
 		"eslint": "10.4.0",
-		"eslint-config-neon": "^0.4.0",
+		"eslint-config-neon": "^0.5.0",
 		"eslint-formatter-pretty": "^7.1.0",
 		"lodash.merge": "^4.6.2",
 		"prettier": "^3.8.3",
