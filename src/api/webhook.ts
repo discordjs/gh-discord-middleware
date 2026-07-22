@@ -98,10 +98,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 			case CheckedEvent.PullRequestReviewThread:
 				target = await getPullRequestRewriteTarget(
 					eventData as
-						| PullRequestEvent
-						| PullRequestReviewCommentEvent
-						| PullRequestReviewEvent
-						| PullRequestReviewThreadEvent,
+						PullRequestEvent | PullRequestReviewCommentEvent | PullRequestReviewEvent | PullRequestReviewThreadEvent,
 				);
 				break;
 			case CheckedEvent.Push:

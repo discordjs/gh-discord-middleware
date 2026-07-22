@@ -171,7 +171,6 @@ const entrypoints = await findEntrypoints(
 for (const entry of entrypoints) {
 	entry.isEdge = await isEdgeFunction(entry.source);
 	const { fileList } = await nodeFileTrace([entry.source], {
-		web: entry.isEdge,
 		conditions: entry.isEdge ? ['browser', 'web'] : ['node'],
 		exportsOnly: true,
 	});
