@@ -1229,17 +1229,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/openapi-types@npm:^27.0.0":
-  version: 27.0.0
-  resolution: "@octokit/openapi-types@npm:27.0.0"
-  checksum: 10/5cd2cdf4e41fdf522e15e3d53f3ece8380d98dda9173a6fc905828fb2c33e8733d5f5d2a757ae3a572525f4749748e66cb40e7939372132988d8eb4ba978d54f
-  languageName: node
-  linkType: hard
-
 "@octokit/openapi-types@npm:^28.0.0":
   version: 28.0.0
   resolution: "@octokit/openapi-types@npm:28.0.0"
   checksum: 10/031cebd35b7a110771ab9909d4d2f8ac2dba7185b55ea2ba91dfa0736f397797c768b7c12b12290e9cb42f1dd1d157ffe829d2009be8542e227780e588a40c68
+  languageName: node
+  linkType: hard
+
+"@octokit/openapi-types@npm:^29.0.1":
+  version: 29.0.1
+  resolution: "@octokit/openapi-types@npm:29.0.1"
+  checksum: 10/843b0ad4891152e0e22c3c6527602992448dc6aec92d9d90f5e9b5c4ceb440224e911d3fdb583be0af06d2db7b93b4bc5663450d8117b818df8e77c407af877d
   languageName: node
   linkType: hard
 
@@ -1266,21 +1266,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/types@npm:^16.0.0":
-  version: 16.0.0
-  resolution: "@octokit/types@npm:16.0.0"
-  dependencies:
-    "@octokit/openapi-types": "npm:^27.0.0"
-  checksum: 10/03d5cfc29556a9b53eae8beb1bf15c0b704dc722db2c51b53f093f3c3ee6c1d8e20b682be8117a3a17034b458be7746d1b22aaefb959ceb5152ad7589b39e2c9
-  languageName: node
-  linkType: hard
-
 "@octokit/types@npm:^17.0.0":
   version: 17.0.0
   resolution: "@octokit/types@npm:17.0.0"
   dependencies:
     "@octokit/openapi-types": "npm:^28.0.0"
   checksum: 10/38db90d8a2dde153b84a26b6ba2aa4e4a8ddda03dd13d6b4a6f075ffe850c946b6852ba77457e4de8c07b10d06f59d174223e69243c88ecb5cf6280ee541601e
+  languageName: node
+  linkType: hard
+
+"@octokit/types@npm:^18.0.0":
+  version: 18.0.0
+  resolution: "@octokit/types@npm:18.0.0"
+  dependencies:
+    "@octokit/openapi-types": "npm:^29.0.1"
+  checksum: 10/40cdc058e18295d838f7f0680bf839d7622fe23e1467166a9d2df4b3a8dff995f088c3f132b0b789fb27213647f6dc3a84f286c099de5c4a5a0b858fb07b4e55
   languageName: node
   linkType: hard
 
@@ -5597,7 +5597,7 @@ __metadata:
   dependencies:
     "@octokit/request": "npm:^10.0.11"
     "@octokit/request-error": "npm:^7.1.0"
-    "@octokit/types": "npm:^16.0.0"
+    "@octokit/types": "npm:^18.0.0"
     "@octokit/webhooks-methods": "npm:^6.0.0"
     "@octokit/webhooks-types": "npm:^7.6.1"
     "@types/estree": "npm:^1.0.9"
