@@ -28,7 +28,7 @@
 		"@octokit/request-error": "^7.1.0",
 		"@octokit/types": "^16.0.0",
 		"@octokit/webhooks-methods": "^6.0.0",
-		"@vercel/edge-config": "1.5.0",
+		"@vercel/edge-config": "1.5.1",
 		"undici": "^8.8.0"
 	},
 	"devDependencies": {
@@ -38,7 +38,7 @@
 		"@vercel/nft": "^1.10.2",
 		"@vercel/node": "^5.8.26",
 		"acorn": "^8.17.0",
-		"eslint": "10.8.0",
+		"eslint": "10.10.0",
 		"eslint-config-neon": "^0.5.4",
 		"eslint-formatter-pretty": "^7.1.0",
 		"lodash.merge": "^4.6.2",
