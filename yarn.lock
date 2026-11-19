@@ -1277,13 +1277,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/openapi-types@npm:^27.0.0":
-  version: 27.0.0
-  resolution: "@octokit/openapi-types@npm:27.0.0"
-  checksum: 10/5cd2cdf4e41fdf522e15e3d53f3ece8380d98dda9173a6fc905828fb2c33e8733d5f5d2a757ae3a572525f4749748e66cb40e7939372132988d8eb4ba978d54f
-  languageName: node
-  linkType: hard
-
 "@octokit/openapi-types@npm:^29.0.1":
   version: 29.0.1
   resolution: "@octokit/openapi-types@npm:29.0.1"
@@ -1311,15 +1304,6 @@ __metadata:
     json-with-bigint: "npm:^3.5.12"
     universal-user-agent: "npm:^7.0.2"
   checksum: 10/806f953a265ed7c3619cb36db5dec4a4e0f17de99fe96f186e1fda0a7de122a34b6e844a4e693a1ea39bc4dc5f9c9eed56fec344c712e0e2059f3dbbee493672
-  languageName: node
-  linkType: hard
-
-"@octokit/types@npm:^16.0.0":
-  version: 16.0.0
-  resolution: "@octokit/types@npm:16.0.0"
-  dependencies:
-    "@octokit/openapi-types": "npm:^27.0.0"
-  checksum: 10/03d5cfc29556a9b53eae8beb1bf15c0b704dc722db2c51b53f093f3c3ee6c1d8e20b682be8117a3a17034b458be7746d1b22aaefb959ceb5152ad7589b39e2c9
   languageName: node
   linkType: hard
 
@@ -5906,7 +5890,7 @@ __metadata:
   dependencies:
     "@octokit/request": "npm:^10.0.11"
     "@octokit/request-error": "npm:^7.1.0"
-    "@octokit/types": "npm:^16.0.0"
+    "@octokit/types": "npm:^18.0.0"
     "@octokit/webhooks-methods": "npm:^6.0.0"
     "@octokit/webhooks-types": "npm:^7.6.1"
     "@types/estree": "npm:^1.0.9"
